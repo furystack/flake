@@ -1,0 +1,10 @@
+{
+  "login.email": "E-mail cím",
+  "login.invalidEmailOrPassword": "Rossz felhasználónév vagy jelszó",
+  "login.login": "Belépés",
+  "login.missingOrWrongEmail": "Adj meg egy érvényes e-mail címet",
+  "login.missingPassword": "Add meg a jelszót",
+  "login.password": "Jelszó",
+  "logout.success": "Sikeresen kiléptél",
+  "pageNotFound": "A keresett oldal nem található..."
+}

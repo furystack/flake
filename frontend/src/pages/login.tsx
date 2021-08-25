@@ -6,6 +6,14 @@ import { useQueryClient } from 'react-query'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 
 const messages = defineMessages({
+  email: {
+    id: 'login.email',
+    defaultMessage: 'E-mail address',
+  },
+  password: {
+    id: 'login.password',
+    defaultMessage: 'Password',
+  },
   invalidEmailOrPassword: {
     id: 'login.invalidEmailOrPassword',
     defaultMessage: 'Invalid e-mail or password',
@@ -51,21 +59,23 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
     <div className="loginContainer" style={{ padding: '5em' }}>
       {/* <img src={Logo} style={{ height: 140, margin: '20px auto' }} /> */}
       <Typography.Title level={3} style={{ margin: '0 auto 50px', color: '#00417A' }}>
-        Login to Flake
+        Flake
       </Typography.Title>
 
       <Form layout="vertical" onFinish={login} data-testid="login-form">
-        <Typography.Title level={1}>Login</Typography.Title>
+        <Typography.Title level={1}>
+          <FormattedMessage {...messages.login} />
+        </Typography.Title>
 
         <Form.Item
-          label="E-mail"
+          label={<FormattedMessage {...messages.email} />}
           name="email"
           rules={[{ required: true, message: intl.formatMessage(messages.missingOrWrongEmail) }]}>
           <Input type="email" />
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label={<FormattedMessage {...messages.password} />}
           name="password"
           rules={[{ required: true, message: intl.formatMessage(messages.missingPassword) }]}>
           <Input type="password" />

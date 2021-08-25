@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "build:stats": "webpack --config webpack.prod.js --profile --json > stats.json",
+    "extract-messages": "extract-messages -l=en,hu -o ./src/localization -d en --flat true dist/**/**.js",
     "start": "webpack serve --config webpack.dev.js"
   },
   "author": "",
@@ -17,6 +18,7 @@
     "@types/react-router-dom": "^5.1.8",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^6.2.0",
+    "extract-react-intl-messages": "^4.1.1",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.3.2",
     "html-webpack-plugin": "^5.3.2",
