@@ -8,7 +8,11 @@ export const Initializer = () => {
   const currentUser = useCurrentUser()
 
   if (currentUser.isLoading && !currentUser.data) {
-    return <Skeleton />
+    return (
+      <div style={{ padding: '5em', width: '100%', height: '100%' }}>
+        <Skeleton />
+      </div>
+    )
   }
 
   if (currentUser.error instanceof ResponseError && currentUser.error.response.status === 401) {

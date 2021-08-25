@@ -2,6 +2,7 @@ import { Layout, Breadcrumb } from 'antd'
 import { Content } from 'antd/lib/layout/layout'
 import { Route, Switch } from 'react-router'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { DashboardPage } from '../pages/dashboard'
 import { NotFoundPage } from '../pages/NotFound'
 import { FlakeHeader } from './header'
 import { FlakeSider } from './sider'
@@ -35,39 +36,7 @@ export const FlakeApplicationLayout = () => (
                   exact
                   path="/"
                   render={() => {
-                    return (
-                      <div>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, dolorem veritatis? Laboriosam in
-                        facere aut magni commodi voluptate aliquid porro cupiditate quae debitis nostrum, totam quaerat
-                        voluptates, reprehenderit mollitia impedit. Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Possimus rerum corrupti at deleniti labore temporibus fugit beatae dolore eaque Lorem,
-                        ipsum dolor sit amet consectetur adipisicing elit. Saepe recusandae cumque, blanditiis aperiam
-                        dolor laborum dignissimos alias deleniti tenetur consequuntur et perspiciatis officia, fuga
-                        molestiae aliquam eveniet, natus ducimus quos? consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti
-                        labore temporibus fugit beatae dolore eaque consectetur ex facere delectus minima, enim
-                        accusamus illo, dolores blanditiis totam? <br />
-                      </div>
-                    )
+                    return <DashboardPage />
                   }}
                 />
                 <Route render={() => <NotFoundPage />} />

@@ -27,7 +27,7 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
   }
 
   return (
-    <div className="loginContainer">
+    <div className="loginContainer" style={{ padding: '5em' }}>
       {/* <img src={Logo} style={{ height: 140, margin: '20px auto' }} /> */}
       <Typography.Title level={3} style={{ margin: '0 auto 50px', color: '#00417A' }}>
         Login to Flake
