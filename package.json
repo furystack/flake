@@ -1,0 +1,74 @@
+{
+  "name": "furystack-boilerplate-app",
+  "version": "1.0.1",
+  "description": "example web app based on furystack",
+  "main": "service/src/index.ts",
+  "repository": "https://github.com/gallayl/fury.git",
+  "author": "Gallay Lajos <gallay.lajos@gmail.com>",
+  "license": "GPL-2.0-only",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "common",
+      "frontend",
+      "service"
+    ],
+    "nohoist": []
+  },
+  "dependencies": {
+    "@types/jest": "^27.0.1",
+    "jest": "^27.0.6",
+    "jest-junit": "^12.2.0",
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "concurrently": "^6.2.1",
+    "cypress": "^8.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-import": "2.24.2",
+    "eslint-plugin-jsdoc": "^36.0.8",
+    "eslint-plugin-prettier": "^3.4.1",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.0",
+    "typescript": "^4.3.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --ext .tsx,.ts --cache --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "build": "tsc -b && yarn workspace frontend build",
+    "create-schemas": "yarn workspace common create-schemas",
+    "seed": "yarn workspace service seed",
+    "test:e2e": "concurrently --kill-others \"yarn start:service\" \"yarn start:frontend\" \"yarn cypress run\" --success first ",
+    "test:unit": "jest --verbose",
+    "start": "concurrently --kill-others \"yarn startService\" \"yarn startFrontend\"  ",
+    "start:service": "yarn workspace service start",
+    "start:frontend": "yarn workspace frontend start",
+    "clean": "rimraf service/dist frontend/dist **/tsconfig.tsbuildinfo tsconfig.tsbuildinfo common/dist",
+    "lint": "eslint . --ext .tsx,.ts --cache"
+  },
+  "jest-junit": {
+    "suiteName": "FuryStack Jest tests",
+    "outputDirectory": "./coverage"
+  }
+}
