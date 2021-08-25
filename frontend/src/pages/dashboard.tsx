@@ -4,7 +4,7 @@ export const DashboardPage = () => {
   const currentUser = useCurrentUser()
   return (
     <div>
-      {JSON.stringify(currentUser.data?.result)}
+      {JSON.stringify(currentUser)}
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, dolorem veritatis? Laboriosam in facere aut magni
       commodi voluptate aliquid porro cupiditate quae debitis nostrum, totam quaerat voluptates, reprehenderit mollitia
       impedit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus rerum corrupti at deleniti labore

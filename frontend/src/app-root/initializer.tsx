@@ -1,11 +1,13 @@
 import { ResponseError } from '@furystack/rest-client-fetch'
 import { Result, Skeleton } from 'antd'
-import { useCurrentUser } from '../hooks/use-current-user'
+import { User } from 'common'
+import { CurrentUserContext } from '../hooks/use-current-user'
+import { useCurrentUserFetcher } from '../hooks/use-current-user-fetcher'
 import { LoginPage } from '../pages/login'
 import { FlakeApplicationLayout } from './flake-application-layout'
 
 export const Initializer = () => {
-  const currentUser = useCurrentUser()
+  const currentUser = useCurrentUserFetcher()
 
   if (currentUser.isLoading && !currentUser.data) {
     return (
@@ -29,5 +31,9 @@ export const Initializer = () => {
     return <Result status={'error'} />
   }
 
-  return <FlakeApplicationLayout />
+  return (
+    <CurrentUserContext.Provider value={currentUser.data?.result as User}>
+      <FlakeApplicationLayout />
+    </CurrentUserContext.Provider>
+  )
 }
