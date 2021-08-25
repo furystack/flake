@@ -3,11 +3,32 @@ import { Button, Form, Input, notification, Typography } from 'antd'
 import { User } from 'common'
 import { useApiContext } from '../hooks/use-api'
 import { useQueryClient } from 'react-query'
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
+
+const messages = defineMessages({
+  invalidEmailOrPassword: {
+    id: 'login.invalidEmailOrPassword',
+    defaultMessage: 'Invalid e-mail or password',
+  },
+  missingOrWrongEmail: {
+    id: 'login.missingOrWrongEmail',
+    defaultMessage: 'Please provide a valid e-mail address',
+  },
+  missingPassword: {
+    id: 'login.missingPassword',
+    defaultMessage: 'Please provide a password',
+  },
+  login: {
+    id: 'login.login',
+    defaultMessage: 'Login',
+  },
+})
 
 export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
   const queryClient = useQueryClient()
 
   const callApi = useApiContext()
+  const intl = useIntl()
 
   const login = async (values: { email: string; password: string }) => {
     try {
@@ -22,7 +43,7 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
       props.onLoggedIn(response.result)
       queryClient.invalidateQueries('GET_CURRENT_USER')
     } catch (error) {
-      notification.error({ message: 'Invalid e-mail or password' })
+      notification.error({ message: intl.formatMessage(messages.invalidEmailOrPassword) })
     }
   }
 
@@ -39,17 +60,20 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
         <Form.Item
           label="E-mail"
           name="email"
-          rules={[{ required: true, message: `Please provide a valid e-mail address` }]}>
+          rules={[{ required: true, message: intl.formatMessage(messages.missingOrWrongEmail) }]}>
           <Input type="email" />
         </Form.Item>
 
-        <Form.Item label="Password" name="password" rules={[{ required: true, message: `Please provide a password` }]}>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: intl.formatMessage(messages.missingPassword) }]}>
           <Input type="password" />
         </Form.Item>
 
         <Form.Item>
           <Button htmlType="submit" type="primary" style={{ marginRight: 10 }}>
-            Login
+            <FormattedMessage {...messages.login} />
           </Button>
         </Form.Item>
       </Form>
