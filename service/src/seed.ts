@@ -47,9 +47,9 @@ export const seed = async (i: Injector): Promise<void> => {
   const sm = i.getInstance(StoreManager)
   const userStore = sm.getStoreFor(User, 'username')
   await getOrCreate(
-    { filter: { username: { $eq: 'testuser' } } },
+    { filter: { username: { $eq: 'testuser@gmail.com' } } },
     {
-      username: 'testuser',
+      username: 'testuser@gmail.com',
       password: i.getInstance(HttpAuthenticationSettings).hashMethod('password'),
       roles: [],
     } as User,

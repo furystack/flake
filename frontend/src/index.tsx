@@ -1,30 +1,23 @@
-/** ToDo: Main entry point */
-import { createComponent, initializeShadeRoot } from '@furystack/shades'
 import { VerboseConsoleLogger } from '@furystack/logging'
 import { Injector } from '@furystack/inject'
-import { Layout } from './components/layout'
+import { render } from 'react-dom'
+import './index.css'
+import { Main } from './app-root/main'
 
-const shadeInjector = new Injector()
+export const rootInjector = new Injector()
 
 export const environmentOptions = {
-  nodeEnv: process.env.NODE_ENV as 'development' | 'production',
-  debug: Boolean(process.env.DEBUG),
   appVersion: process.env.APP_VERSION as string,
   buildDate: new Date(process.env.BUILD_DATE as string),
-  serviceUrl: process.env.SERVICE_URL as string,
 }
 
-shadeInjector.useLogging(VerboseConsoleLogger)
+rootInjector.useLogging(VerboseConsoleLogger)
 
-shadeInjector.logger.withScope('Startup').verbose({
-  message: 'Initializing Shade Frontend...',
+rootInjector.logger.withScope('Startup').verbose({
+  message: 'Initializing Flake Frontend...',
   data: { environmentOptions },
 })
 
 const rootElement: HTMLDivElement = document.getElementById('root') as HTMLDivElement
 
-initializeShadeRoot({
-  injector: shadeInjector,
-  rootElement,
-  jsxElement: <Layout />,
-})
+render(<Main />, rootElement)

@@ -1,4 +1,4 @@
-import * as BoilerplateApiSchemas from './boilerplate-api.json'
+import * as FlakeApiSchemas from './flake-api.json'
 import * as EntityApiSchemas from './entities.json'
 
-export { BoilerplateApiSchemas, EntityApiSchemas }
+export { FlakeApiSchemas, EntityApiSchemas }
