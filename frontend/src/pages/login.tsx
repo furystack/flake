@@ -33,7 +33,7 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
         Login to Flake
       </Typography.Title>
 
-      <Form layout="vertical" onFinish={login}>
+      <Form layout="vertical" onFinish={login} data-testid="login-form">
         <Typography.Title level={1}>Login</Typography.Title>
 
         <Form.Item

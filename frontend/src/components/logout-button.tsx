@@ -15,6 +15,7 @@ export const LogoutButton = () => {
   const intl = useIntl()
   return (
     <Button
+      data-testid="logout-button"
       onClick={async () => {
         try {
           await api({ method: 'POST', action: '/logout' })
