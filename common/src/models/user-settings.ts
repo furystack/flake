@@ -1,4 +1,4 @@
-export interface UserSettings {
-  theme: 'light' | 'dark'
-  dashboardId?: string
+export class UserSettings {
+  username!: string
+  theme!: 'light' | 'dark'
 }

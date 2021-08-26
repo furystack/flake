@@ -284,7 +284,7 @@
     "Organization": {
       "type": "object",
       "properties": {
-        "_id": {
+        "id": {
           "type": "string"
         },
         "name": {
@@ -316,7 +316,7 @@
         }
       },
       "required": [
-        "_id",
+        "id",
         "name",
         "icon",
         "description",
@@ -326,29 +326,10 @@
       ],
       "additionalProperties": false
     },
-    "UserSettings": {
-      "type": "object",
-      "properties": {
-        "theme": {
-          "type": "string",
-          "enum": [
-            "light",
-            "dark"
-          ]
-        },
-        "dashboardId": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "theme"
-      ],
-      "additionalProperties": false
-    },
     "Profile": {
       "type": "object",
       "properties": {
-        "_id": {
+        "id": {
           "type": "string"
         },
         "username": {
@@ -359,24 +340,27 @@
         },
         "description": {
           "type": "string"
-        },
-        "userSettings": {
-          "$ref": "#/definitions/UserSettings"
         }
       },
       "required": [
-        "_id",
+        "id",
         "username",
         "displayName",
-        "description",
-        "userSettings"
+        "description"
       ],
       "additionalProperties": false
+    },
+    "Role": {
+      "type": "string",
+      "enum": [
+        "terms-accepted",
+        "admin"
+      ]
     },
     "Session": {
       "type": "object",
       "properties": {
-        "_id": {
+        "id": {
           "type": "string"
         },
         "sessionId": {
@@ -387,9 +371,254 @@
         }
       },
       "required": [
-        "_id",
+        "id",
         "sessionId",
         "username"
+      ],
+      "additionalProperties": false
+    },
+    "SystemSettings": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SYSTEM"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "avatarsPath": {
+              "type": "string"
+            },
+            "subtitlesPath": {
+              "type": "string"
+            },
+            "tempPath": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "avatarsPath",
+            "subtitlesPath",
+            "tempPath"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "GithubSettings": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "GITHUB"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "clientId": {
+              "type": "string"
+            },
+            "clientSecret": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "clientId",
+            "clientSecret"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "GoogleSettings": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "GOOGLE"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "clientId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "clientId"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "OmdbSettings": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "OMDB"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "apiKey": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apiKey"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "RapidApi": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "RAPID_API"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "host": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "key",
+            "host"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "SettingsType": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/SystemSettings"
+        },
+        {
+          "$ref": "#/definitions/GithubSettings"
+        },
+        {
+          "$ref": "#/definitions/GoogleSettings"
+        },
+        {
+          "$ref": "#/definitions/OmdbSettings"
+        }
+      ]
+    },
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "SYSTEM",
+            "GITHUB",
+            "GOOGLE",
+            "OMDB"
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "avatarsPath": {
+                  "type": "string"
+                },
+                "subtitlesPath": {
+                  "type": "string"
+                },
+                "tempPath": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "avatarsPath",
+                "subtitlesPath",
+                "tempPath"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "clientSecret": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId",
+                "clientSecret"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "apiKey"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "value"
       ],
       "additionalProperties": false
     },
@@ -424,6 +653,26 @@
         "password",
         "registrationDate",
         "roles"
+      ],
+      "additionalProperties": false
+    },
+    "UserSettings": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ]
+        }
+      },
+      "required": [
+        "username",
+        "theme"
       ],
       "additionalProperties": false
     }

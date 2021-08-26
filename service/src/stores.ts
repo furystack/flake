@@ -1,4 +1,4 @@
-import { User, GithubAccount, GoogleAccount, Organization, Profile } from 'common'
+import { User, GithubAccount, GoogleAccount, Organization, Profile, UserSettings } from 'common'
 import '@furystack/filesystem-store'
 import { Constructable, Injector } from '@furystack/inject'
 import { DefaultSession } from '@furystack/rest-service'
@@ -7,7 +7,6 @@ import { join } from 'path'
 const STORE_TICK_MS = 30 * 1000
 const getFileName = (model: Constructable<any>) => {
   const name = join(process.cwd(), 'data', `${model.name}.json`)
-  console.log('Store name is', name)
   return name
 }
 
@@ -47,6 +46,12 @@ export const setupStores = (i: Injector) => {
         model: Profile,
         primaryKey: 'id',
         fileName: getFileName(Profile),
+        tickMs: STORE_TICK_MS,
+      })
+      .useFileSystem({
+        model: UserSettings,
+        primaryKey: 'username',
+        fileName: getFileName(UserSettings),
         tickMs: STORE_TICK_MS,
       })
   })

@@ -61,7 +61,7 @@ export const seed = async (i: Injector): Promise<void> => {
   )
   await getOrCreate(
     { filter: { username: { $eq: testUser.username } } },
-    { username: testUser.username, userSettings: { theme: 'dark' }, description: '', displayName: 'Test User' },
+    { username: testUser.username, description: '', displayName: 'Test User' },
     profileStore,
     i,
   )

@@ -24,10 +24,10 @@ export const authorizedDataSet: Partial<DataSetSettings<any, any>> = {
 }
 
 export const injector = new Injector()
+
+setupStores(injector)
 injector.useLogging(VerboseConsoleLogger).setupRepository((repo) =>
   repo.createDataSet(User, 'username', {
     ...authorizedDataSet,
   }),
 )
-
-setupStores(injector)

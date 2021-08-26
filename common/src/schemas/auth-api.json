@@ -1,7 +1,537 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/AuthApi",
   "definitions": {
+    "PutSettings": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/UserSettings"
+        },
+        "result": {
+          "$ref": "#/definitions/UserSettings"
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "UserSettings": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ]
+        }
+      },
+      "required": [
+        "username",
+        "theme"
+      ],
+      "additionalProperties": false
+    },
+    "PostAttachGithubAccount": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "clientId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "clientId"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostGithubRegister": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "clientId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "clientId"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostGithubLogin": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "clientId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "clientId"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostGoogleLogin": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostAttachGoogleAccount": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostGoogleRegister": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostAttachGoogleLogin": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "token"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "PostLogin": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "$ref": "#/definitions/User"
+        },
+        "body": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "username",
+            "password"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "result",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "registrationDate": {
+          "type": "string"
+        },
+        "avatarFile": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "terms-accepted",
+              "admin"
+            ]
+          }
+        }
+      },
+      "required": [
+        "username",
+        "password",
+        "registrationDate",
+        "roles"
+      ],
+      "additionalProperties": false
+    },
+    "PostRegister": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "password"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "registrationDate": {
+              "type": "string"
+            },
+            "avatarFile": {
+              "type": "string"
+            },
+            "roles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "terms-accepted",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "required": [
+            "username",
+            "registrationDate",
+            "roles"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false
+    },
     "AuthApi": {
       "type": "object",
       "properties": {
@@ -19,10 +549,148 @@
                 "result"
               ],
               "additionalProperties": false
+            },
+            "/loginProviderDetails": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "google": {
+                      "$ref": "#/definitions/GoogleAccount"
+                    },
+                    "github": {
+                      "$ref": "#/definitions/GithubAccount"
+                    },
+                    "hasPassword": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "hasPassword"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "additionalProperties": false
+            },
+            "/oauth-data": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "googleClientId": {
+                      "type": "string"
+                    },
+                    "githubClientId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "googleClientId",
+                    "githubClientId"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "additionalProperties": false
+            },
+            "/profiles/:username": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayName": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "username",
+                    "displayName",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                },
+                "url": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "username"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "result",
+                "url"
+              ],
+              "additionalProperties": false
+            },
+            "/profiles/:username/avatar": {
+              "type": "object",
+              "properties": {
+                "result": {},
+                "url": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "username"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "result",
+                "url"
+              ],
+              "additionalProperties": false
+            },
+            "/settings": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/UserSettings"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "additionalProperties": false
             }
           },
           "required": [
-            "/currentUser"
+            "/currentUser",
+            "/loginProviderDetails",
+            "/oauth-data",
+            "/profiles/:username",
+            "/profiles/:username/avatar",
+            "/settings"
           ],
           "additionalProperties": false
         },
@@ -30,31 +698,104 @@
           "type": "object",
           "properties": {
             "/login": {
+              "$ref": "#/definitions/PostLogin"
+            },
+            "/register": {
+              "$ref": "#/definitions/PostRegister"
+            },
+            "/googleLogin": {
+              "$ref": "#/definitions/PostGoogleLogin"
+            },
+            "/googleRegister": {
+              "$ref": "#/definitions/PostGoogleRegister"
+            },
+            "/attachGoogleAccount": {
+              "$ref": "#/definitions/PostAttachGoogleAccount"
+            },
+            "/detachGoogleAccount": {
               "type": "object",
               "properties": {
                 "result": {
-                  "$ref": "#/definitions/User"
-                },
-                "body": {
                   "type": "object",
                   "properties": {
                     "username": {
                       "type": "string"
                     },
-                    "password": {
+                    "registrationDate": {
                       "type": "string"
+                    },
+                    "avatarFile": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "terms-accepted",
+                          "admin"
+                        ]
+                      }
                     }
                   },
                   "required": [
                     "username",
-                    "password"
+                    "registrationDate",
+                    "roles"
                   ],
                   "additionalProperties": false
                 }
               },
               "required": [
-                "result",
-                "body"
+                "result"
+              ],
+              "additionalProperties": false
+            },
+            "/githubLogin": {
+              "$ref": "#/definitions/PostGithubLogin"
+            },
+            "/githubRegister": {
+              "$ref": "#/definitions/PostGithubRegister"
+            },
+            "/attachGithubAccount": {
+              "$ref": "#/definitions/PostAttachGithubAccount"
+            },
+            "/detachGithubAccount": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "registrationDate": {
+                      "type": "string"
+                    },
+                    "avatarFile": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "terms-accepted",
+                          "admin"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "username",
+                    "registrationDate",
+                    "roles"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "result"
               ],
               "additionalProperties": false
             },
@@ -67,13 +808,135 @@
                 "result"
               ],
               "additionalProperties": false
+            },
+            "/accept-terms": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "additionalProperties": false
             }
           },
           "required": [
             "/login",
-            "/logout"
+            "/register",
+            "/googleLogin",
+            "/googleRegister",
+            "/attachGoogleAccount",
+            "/detachGoogleAccount",
+            "/githubLogin",
+            "/githubRegister",
+            "/attachGithubAccount",
+            "/detachGithubAccount",
+            "/logout",
+            "/accept-terms"
           ],
           "additionalProperties": false
+        },
+        "PATCH": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "PUT": {
+          "type": "object",
+          "properties": {
+            "/settings": {
+              "$ref": "#/definitions/PutSettings"
+            }
+          },
+          "required": [
+            "/settings"
+          ],
+          "additionalProperties": false
+        },
+        "DELETE": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "GET",
+        "POST",
+        "PUT"
+      ],
+      "additionalProperties": false
+    },
+    "RestApi": {
+      "type": "object",
+      "properties": {
+        "GET": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "POST": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
         },
         "PATCH": {
           "type": "object",
@@ -127,43 +990,234 @@
           }
         }
       },
-      "required": [
-        "GET",
-        "POST"
-      ],
       "additionalProperties": false
     },
-    "User": {
+    "GoogleAccount": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
+        "googleId": {
+          "type": "number"
+        },
+        "googleApiPayload": {
+          "type": "object",
+          "properties": {
+            "iss": {
+              "type": "string"
+            },
+            "sub": {
+              "type": "number"
+            },
+            "email": {
+              "type": "string"
+            },
+            "email_verified": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            },
+            "given_name": {
+              "type": "string"
+            },
+            "family_name": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "iss",
+            "sub",
+            "email",
+            "email_verified",
+            "name",
+            "picture",
+            "given_name",
+            "family_name",
+            "locale"
+          ],
+          "additionalProperties": false
+        },
         "username": {
           "type": "string"
         },
-        "password": {
+        "accountLinkDate": {
           "type": "string"
-        },
-        "registrationDate": {
-          "type": "string"
-        },
-        "avatarFile": {
-          "type": "string"
-        },
-        "roles": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "terms-accepted",
-              "admin"
-            ]
-          }
         }
       },
       "required": [
+        "id",
+        "googleId",
+        "googleApiPayload",
         "username",
-        "password",
-        "registrationDate",
-        "roles"
+        "accountLinkDate"
+      ],
+      "additionalProperties": false
+    },
+    "GithubAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "githubId": {
+          "type": "number"
+        },
+        "githubApiPayload": {
+          "$ref": "#/definitions/GithubApiPayload"
+        },
+        "username": {
+          "type": "string"
+        },
+        "accountLinkDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "githubId",
+        "githubApiPayload",
+        "username",
+        "accountLinkDate"
+      ],
+      "additionalProperties": false
+    },
+    "GithubApiPayload": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "gravatar_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "html_url": {
+          "type": "string"
+        },
+        "followers_url": {
+          "type": "string"
+        },
+        "following_url": {
+          "type": "string"
+        },
+        "gists_url": {
+          "type": "string"
+        },
+        "starred_url": {
+          "type": "string"
+        },
+        "subscriptions_url": {
+          "type": "string"
+        },
+        "organizations_url": {
+          "type": "string"
+        },
+        "repos_url": {
+          "type": "string"
+        },
+        "events_url": {
+          "type": "string"
+        },
+        "received_events_url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "site_admin": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "blog": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "hireable": {
+          "type": "boolean"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "public_repos": {
+          "type": "number"
+        },
+        "public_gists": {
+          "type": "number"
+        },
+        "followers": {
+          "type": "number"
+        },
+        "following": {
+          "type": "number"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "login",
+        "id",
+        "node_id",
+        "avatar_url",
+        "gravatar_id",
+        "url",
+        "html_url",
+        "followers_url",
+        "following_url",
+        "gists_url",
+        "starred_url",
+        "subscriptions_url",
+        "organizations_url",
+        "repos_url",
+        "events_url",
+        "received_events_url",
+        "type",
+        "site_admin",
+        "name",
+        "company",
+        "blog",
+        "location",
+        "email",
+        "hireable",
+        "bio",
+        "public_repos",
+        "public_gists",
+        "followers",
+        "following",
+        "created_at",
+        "updated_at"
       ],
       "additionalProperties": false
     }
