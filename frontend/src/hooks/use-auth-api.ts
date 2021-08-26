@@ -2,11 +2,11 @@ import { AuthApi } from 'common'
 import { createClient } from '@furystack/rest-client-fetch'
 import { createContext, useContext } from 'react'
 
-const apiContext = createContext(
+const authApiContext = createContext(
   createClient<AuthApi>({
-    endpointUrl: process.env.SERVICE_URL || '/',
+    endpointUrl: `${process.env.SERVICE_URL || ''}/auth`,
     requestInit: { credentials: 'include' },
   }),
 )
 
-export const useApiContext = () => useContext(apiContext)
+export const useAuthApiContext = () => useContext(authApiContext)

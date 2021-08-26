@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query'
-import { useApiContext } from './use-api'
+import { useAuthApiContext } from './use-auth-api'
 
 export const useCurrentUserFetcher = () => {
-  const api = useApiContext()
+  const api = useAuthApiContext()
   const currentUser = useQuery('GET_CURRENT_USER', () => api({ method: 'GET', action: '/currentUser' }), {
     refetchOnWindowFocus: false,
     retry: false,

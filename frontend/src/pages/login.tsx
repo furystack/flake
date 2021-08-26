@@ -1,9 +1,10 @@
 import { FC } from 'react'
 import { Button, Form, Input, notification, Typography } from 'antd'
 import { User } from 'common'
-import { useApiContext } from '../hooks/use-api'
 import { useQueryClient } from 'react-query'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
+import { useAuthApiContext } from '../hooks/use-auth-api'
+import { useGoogleAuth } from '../hooks/use-google-auth'
 
 const messages = defineMessages({
   email: {
@@ -35,8 +36,10 @@ const messages = defineMessages({
 export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
   const queryClient = useQueryClient()
 
-  const callApi = useApiContext()
+  const callApi = useAuthApiContext()
   const intl = useIntl()
+
+  const googleAuth = useGoogleAuth()
 
   const login = async (values: { email: string; password: string }) => {
     try {
@@ -84,6 +87,15 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
         <Form.Item>
           <Button htmlType="submit" type="primary" style={{ marginRight: 10 }}>
             <FormattedMessage {...messages.login} />
+          </Button>
+          <Button
+            htmlType="button"
+            type="default"
+            style={{ marginRight: 10 }}
+            onClick={() => {
+              googleAuth.login()
+            }}>
+            Google
           </Button>
         </Form.Item>
       </Form>

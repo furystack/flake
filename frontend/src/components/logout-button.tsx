@@ -2,7 +2,7 @@ import { LogoutOutlined } from '@ant-design/icons'
 import { Button, notification } from 'antd'
 import { defineMessage, useIntl } from 'react-intl'
 import { useQueryClient } from 'react-query'
-import { useApiContext } from '../hooks/use-api'
+import { useAuthApiContext } from '../hooks/use-auth-api'
 
 const logout = defineMessage({
   id: 'logout.success',
@@ -10,7 +10,7 @@ const logout = defineMessage({
 })
 
 export const LogoutButton = () => {
-  const api = useApiContext()
+  const api = useAuthApiContext()
   const queryClient = useQueryClient()
   const intl = useIntl()
   return (

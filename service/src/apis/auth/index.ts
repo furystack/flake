@@ -20,7 +20,7 @@ import { PutSettings } from './put-settings'
 
 export const useAuthApi = (injector: Injector) => {
   injector.useRestService<AuthApi>({
-    root: 'api',
+    root: '/api/auth',
     port: parseInt(process.env.APP_SERVICE_PORT as string, 10) || 9090,
     cors: {
       credentials: true,

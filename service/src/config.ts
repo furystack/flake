@@ -2,6 +2,7 @@ import { Injector } from '@furystack/inject'
 import { VerboseConsoleLogger } from '@furystack/logging'
 import { DataSetSettings, AuthorizationResult } from '@furystack/repository'
 import '@furystack/repository/dist/injector-extension'
+import './extensions'
 import { User } from 'common'
 import { setupStores } from './stores'
 

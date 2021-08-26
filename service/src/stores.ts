@@ -1,4 +1,4 @@
-import { User, GithubAccount, GoogleAccount, Organization, Profile, UserSettings } from 'common'
+import { User, GithubAccount, GoogleAccount, Organization, Profile, UserSettings, Settings } from 'common'
 import '@furystack/filesystem-store'
 import { Constructable, Injector } from '@furystack/inject'
 import { DefaultSession } from '@furystack/rest-service'
@@ -52,6 +52,12 @@ export const setupStores = (i: Injector) => {
         model: UserSettings,
         primaryKey: 'username',
         fileName: getFileName(UserSettings),
+        tickMs: STORE_TICK_MS,
+      })
+      .useFileSystem({
+        model: Settings,
+        primaryKey: 'type',
+        fileName: getFileName(Settings),
         tickMs: STORE_TICK_MS,
       })
   })
