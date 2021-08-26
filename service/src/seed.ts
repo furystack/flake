@@ -1,8 +1,9 @@
 import { PhysicalStore, StoreManager, FindOptions, WithOptionalId } from '@furystack/core'
 import { HttpAuthenticationSettings } from '@furystack/rest-service'
 import { Injector } from '@furystack/inject'
-import { User } from 'common'
-import { injector } from './config'
+import { Profile, User } from 'common'
+import { setupStores } from './stores'
+import { VerboseConsoleLogger } from '@furystack/logging'
 
 /**
  * gets an existing instance if exists or create and return if not. Throws error on multiple result
@@ -25,7 +26,7 @@ export const getOrCreate = async <T, TKey extends keyof T>(
     return result[0]
   } else if (result.length === 0) {
     logger.verbose({
-      message: `Entity of type '${store.model.name}' not exists, adding: '${JSON.stringify(filter)}'`,
+      message: `Entity '${store.model.name}' not exists, adding: '${JSON.stringify(instance)}'`,
     })
     const createResult = await store.add(instance)
     return createResult.created[0]
@@ -46,7 +47,8 @@ export const seed = async (i: Injector): Promise<void> => {
   logger.verbose({ message: 'Seeding data...' })
   const sm = i.getInstance(StoreManager)
   const userStore = sm.getStoreFor(User, 'username')
-  await getOrCreate(
+  const profileStore = sm.getStoreFor(Profile, 'id')
+  const testUser = await getOrCreate(
     { filter: { username: { $eq: 'testuser@gmail.com' } } },
     {
       username: 'testuser@gmail.com',
@@ -57,8 +59,20 @@ export const seed = async (i: Injector): Promise<void> => {
     userStore,
     i,
   )
+  await getOrCreate(
+    { filter: { username: { $eq: testUser.username } } },
+    { username: testUser.username, userSettings: { theme: 'dark' }, description: '', displayName: 'Test User' },
+    profileStore,
+    i,
+  )
 
   logger.verbose({ message: 'Seeding data completed.' })
 }
 
-seed(injector).then(() => injector.dispose())
+const injector = new Injector().useLogging(VerboseConsoleLogger).disposeOnProcessExit()
+
+setupStores(injector)
+seed(injector).then(async () => {
+  await injector.getInstance(StoreManager).dispose()
+  await injector.dispose()
+})

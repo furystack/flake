@@ -1,7 +1,7 @@
 import { Owner } from './owner'
 
 export class Organization {
-  _id!: string
+  id!: string
   name!: string
   icon!: string
   description!: string

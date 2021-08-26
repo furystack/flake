@@ -64,7 +64,7 @@ dist
 *.tsbuildinfo
 frontend/bundle
 
-service/data.sqlite
+service/data
 cypress/videos
 cypress/screenshots
 testresults

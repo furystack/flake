@@ -9,6 +9,7 @@
       "request": "launch",
       "name": "Debug Service",
       "program": "${workspaceFolder}/service/src/service.ts",
+      "cwd": "${workspaceFolder}/service",
       "outFiles": ["${workspaceFolder}/service/dist/service.js"]
     },
     {
@@ -16,6 +17,7 @@
       "request": "launch",
       "name": "Debug Seed",
       "program": "${workspaceFolder}/service/src/seed.ts",
+      "cwd": "${workspaceFolder}/service",
       "outFiles": ["${workspaceFolder}/service/dist/seed.js"]
     }
   ]
