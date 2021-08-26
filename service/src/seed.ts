@@ -52,7 +52,8 @@ export const seed = async (i: Injector): Promise<void> => {
       username: 'testuser@gmail.com',
       password: i.getInstance(HttpAuthenticationSettings).hashMethod('password'),
       roles: [],
-    } as User,
+      registrationDate: new Date().toISOString(),
+    },
     userStore,
     i,
   )

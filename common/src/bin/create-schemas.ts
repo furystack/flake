@@ -21,8 +21,8 @@ export const entityValues: SchemaGenerationSetting[] = [
 
 export const apiValues: SchemaGenerationSetting[] = [
   {
-    inputFile: './src/flake-api.ts',
-    outputFile: './src/schemas/flake-api.json',
+    inputFile: './src/apis/auth-api.ts',
+    outputFile: './src/schemas/auth-api.json',
     type: '*',
   },
 ]

@@ -1,5 +1,5 @@
-import { FlakeApi, User } from 'common'
-import { DefaultSession, GetCurrentUser, LoginAction, LogoutAction } from '@furystack/rest-service'
+import { AuthApi, User } from 'common'
+import { DefaultSession, GetCurrentUser, LoginAction, LogoutAction, RequestAction } from '@furystack/rest-service'
 import '@furystack/repository'
 import { injector } from './config'
 import { attachShutdownHandler } from './shutdown-handler'
@@ -7,10 +7,10 @@ import { attachShutdownHandler } from './shutdown-handler'
 injector
   .useHttpAuthentication({
     enableBasicAuth: false,
-    getUserStore: (sm) => sm.getStoreFor<User & { password: string }, 'username'>(User as any, 'username'),
+    getUserStore: (sm) => sm.getStoreFor<User, 'username'>(User as any, 'username'),
     getSessionStore: (sm) => sm.getStoreFor(DefaultSession, 'sessionId'),
   })
-  .useRestService<FlakeApi>({
+  .useRestService<AuthApi>({
     root: 'api',
     port: parseInt(process.env.APP_SERVICE_PORT as string, 10) || 9090,
     cors: {
@@ -20,10 +20,10 @@ injector
     },
     api: {
       GET: {
-        '/currentUser': GetCurrentUser,
+        '/currentUser': GetCurrentUser as RequestAction<{ result: User }>,
       },
       POST: {
-        '/login': LoginAction,
+        '/login': LoginAction as any,
         '/logout': LogoutAction,
       },
     },

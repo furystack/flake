@@ -1,6 +1,6 @@
 import { RestApi } from '@furystack/rest'
-import { User } from './models/user'
-export interface FlakeApi extends RestApi {
+import { User } from '../models/user'
+export interface AuthApi extends RestApi {
   GET: {
     '/currentUser': { result: User }
   }

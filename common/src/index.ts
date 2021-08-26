@@ -1,3 +1,3 @@
 export * from './models/user'
-export * from './flake-api'
+export * from './apis'
 export * from './schemas'
