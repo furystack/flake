@@ -3,7 +3,7 @@ import { VerboseConsoleLogger } from '@furystack/logging'
 import { DataSetSettings, AuthorizationResult } from '@furystack/repository'
 import '@furystack/repository/dist/injector-extension'
 import './extensions'
-import { User } from 'common'
+import { Settings, User } from 'common'
 import { setupStores } from './stores'
 
 export const authorizedOnly = async (options: { injector: Injector }): Promise<AuthorizationResult> => {
@@ -28,7 +28,11 @@ export const injector = new Injector()
 
 setupStores(injector)
 injector.useLogging(VerboseConsoleLogger).setupRepository((repo) =>
-  repo.createDataSet(User, 'username', {
-    ...authorizedDataSet,
-  }),
+  repo
+    .createDataSet(User, 'username', {
+      ...authorizedDataSet,
+    })
+    .createDataSet(Settings, 'type', {
+      ...authorizedDataSet,
+    }),
 )

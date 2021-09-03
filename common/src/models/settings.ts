@@ -39,7 +39,11 @@ export type RapidApi = {
 
 export type SettingsType = SystemSettings | GithubSettings | GoogleSettings | OmdbSettings
 
+export const SettingsTypeNames = ['SYSTEM', 'GITHUB', 'GOOGLE', 'OMDB'] as const // For runtime operations
+
+export type SettingsTypeName = typeof SettingsTypeNames[number]
+
 export class Settings {
-  type!: SettingsType['type']
+  type!: SettingsTypeName
   value!: SettingsType['value']
 }

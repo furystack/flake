@@ -539,17 +539,20 @@
         }
       ]
     },
+    "SettingsTypeName": {
+      "type": "string",
+      "enum": [
+        "SYSTEM",
+        "GITHUB",
+        "GOOGLE",
+        "OMDB"
+      ]
+    },
     "Settings": {
       "type": "object",
       "properties": {
         "type": {
-          "type": "string",
-          "enum": [
-            "SYSTEM",
-            "GITHUB",
-            "GOOGLE",
-            "OMDB"
-          ]
+          "$ref": "#/definitions/SettingsTypeName"
         },
         "value": {
           "anyOf": [

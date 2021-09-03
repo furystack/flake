@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { VerboseConsoleLogger } from '@furystack/logging'
 import { Injector } from '@furystack/inject'
 import { render } from 'react-dom'

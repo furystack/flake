@@ -59,7 +59,7 @@ export const GithubRegisterAction: RequestAction<PostGithubRegister> = Validate(
       githubApiPayload.avatar_url &&
       (await injector.getInstance(AvatarService).saveFromUrl({ url: githubApiPayload.avatar_url, user: newUser }))
   } catch (error) {
-    await logger.warning({ message: 'Failed to get Avatar', data: { message: error.message, stack: error.stack } })
+    await logger.warning({ message: 'Failed to get Avatar', data: { error } })
   }
 
   return JsonResult({ ...user })

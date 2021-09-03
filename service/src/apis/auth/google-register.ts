@@ -51,7 +51,7 @@ export const GoogleRegisterAction: RequestAction<PostGoogleRegister> = async ({ 
       googleUserData.picture &&
       (await injector.getInstance(AvatarService).saveFromUrl({ user: userToAdd, url: googleUserData.picture }))
   } catch (error) {
-    await logger.warning({ message: 'Failed to get Avatar', data: { message: error.message, stack: error.stack } })
+    await logger.warning({ message: 'Failed to get Avatar', data: { error } })
   }
 
   const { password, ...userToAddWithoutPw } = userToAdd

@@ -8,6 +8,7 @@ import {
   UserOutlined,
   SmileOutlined,
   ToolOutlined,
+  HomeOutlined,
 } from '@ant-design/icons'
 import { Header } from 'antd/lib/layout/layout'
 import { useCallback, useEffect, useState } from 'react'
@@ -84,8 +85,10 @@ export const FlakeHeader = () => {
         transform,
         display: 'flex',
       }}>
-      <div className="logo" />
       <Menu mode="horizontal" selectedKeys={locationKeys} style={{ width: '100%' }}>
+        <Menu.Item key="/" icon={<HomeOutlined />}>
+          <Link to="/" />
+        </Menu.Item>
         <Menu.Item key="/videos" icon={<VideoCameraOutlined />}>
           <Link to="/videos">
             <FormattedMessage {...messages.videos} />

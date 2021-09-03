@@ -16,7 +16,9 @@ export const GithubLoginAction: RequestAction<PostGithubLogin> = Validate({
     await injector.logger.error({
       scope: 'GithubLoginAction',
       message: 'Github Login error',
-      data: { error, ...(error.response?.body ? { responseBody: error.response?.body } : {}) },
+      data: {
+        error,
+      },
     })
     throw new RequestError('Cannot get payload from Github', 500)
   }

@@ -1,0 +1,766 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/SettingsApi",
+  "definitions": {
+    "SettingsApi": {
+      "type": "object",
+      "properties": {
+        "GET": {
+          "type": "object",
+          "properties": {
+            "/system": {
+              "$ref": "#/definitions/GetCollectionEndpoint%3CSettings%3E"
+            },
+            "/system/:id": {
+              "$ref": "#/definitions/GetEntityEndpoint%3CSettings%2C%22type%22%3E"
+            }
+          },
+          "required": [
+            "/system",
+            "/system/:id"
+          ],
+          "additionalProperties": false
+        },
+        "POST": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "PATCH": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "PUT": {
+          "type": "object",
+          "properties": {
+            "/system": {
+              "$ref": "#/definitions/PostEndpoint%3CSettings%2C%22type%22%3E"
+            }
+          },
+          "required": [
+            "/system"
+          ],
+          "additionalProperties": false
+        },
+        "DELETE": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "GET",
+        "PUT"
+      ],
+      "additionalProperties": false
+    },
+    "GetCollectionEndpoint<Settings>": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "properties": {
+            "findOptions": {
+              "$ref": "#/definitions/FindOptions%3CSettings%2C(%22type%22%7C%22value%22)%5B%5D%3E"
+            }
+          },
+          "additionalProperties": false
+        },
+        "result": {
+          "$ref": "#/definitions/GetCollectionResult%3CSettings%3E"
+        }
+      },
+      "required": [
+        "query",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Rest endpoint model for getting / querying collections"
+    },
+    "FindOptions<Settings,(\"type\"|\"value\")[]>": {
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "number",
+          "description": "Limits the hits"
+        },
+        "skip": {
+          "type": "number",
+          "description": "Skips the first N hit"
+        },
+        "order": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "value": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "description": "Sets up an order by a field and a direction"
+        },
+        "select": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "type",
+              "value"
+            ]
+          },
+          "description": "The result set will be limited to these fields"
+        },
+        "filter": {
+          "$ref": "#/definitions/FilterType%3CSettings%3E",
+          "description": "The fields should match this filter"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Type for default filtering model"
+    },
+    "FilterType<Settings>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$and": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CSettings%3E"
+          }
+        },
+        "$not": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CSettings%3E"
+          }
+        },
+        "$nor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CSettings%3E"
+          }
+        },
+        "$or": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CSettings%3E"
+          }
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$regex": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "$ref": "#/definitions/SettingsTypeName"
+                },
+                "$ne": {
+                  "$ref": "#/definitions/SettingsTypeName"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SettingsTypeName"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SettingsTypeName"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "avatarsPath": {
+                          "type": "string"
+                        },
+                        "subtitlesPath": {
+                          "type": "string"
+                        },
+                        "tempPath": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "avatarsPath",
+                        "subtitlesPath",
+                        "tempPath"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "clientSecret": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "clientId",
+                        "clientSecret"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "clientId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "apiKey": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "apiKey"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                },
+                "$ne": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "avatarsPath": {
+                          "type": "string"
+                        },
+                        "subtitlesPath": {
+                          "type": "string"
+                        },
+                        "tempPath": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "avatarsPath",
+                        "subtitlesPath",
+                        "tempPath"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        },
+                        "clientSecret": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "clientId",
+                        "clientSecret"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "clientId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "apiKey": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "apiKey"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "avatarsPath": {
+                            "type": "string"
+                          },
+                          "subtitlesPath": {
+                            "type": "string"
+                          },
+                          "tempPath": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "avatarsPath",
+                          "subtitlesPath",
+                          "tempPath"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "clientId": {
+                            "type": "string"
+                          },
+                          "clientSecret": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "clientId",
+                          "clientSecret"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "clientId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "clientId"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "apiKey": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "apiKey"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "avatarsPath": {
+                            "type": "string"
+                          },
+                          "subtitlesPath": {
+                            "type": "string"
+                          },
+                          "tempPath": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "avatarsPath",
+                          "subtitlesPath",
+                          "tempPath"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "clientId": {
+                            "type": "string"
+                          },
+                          "clientSecret": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "clientId",
+                          "clientSecret"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "clientId": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "clientId"
+                        ],
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "apiKey": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "apiKey"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "SettingsTypeName": {
+      "type": "string",
+      "enum": [
+        "SYSTEM",
+        "GITHUB",
+        "GOOGLE",
+        "OMDB"
+      ]
+    },
+    "GetCollectionResult<Settings>": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number",
+          "description": "The Total count of entities"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Settings"
+          },
+          "description": "List of the selected entities"
+        }
+      },
+      "required": [
+        "count",
+        "entries"
+      ],
+      "additionalProperties": false,
+      "description": "Response Model for GetCollection"
+    },
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/SettingsTypeName"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "avatarsPath": {
+                  "type": "string"
+                },
+                "subtitlesPath": {
+                  "type": "string"
+                },
+                "tempPath": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "avatarsPath",
+                "subtitlesPath",
+                "tempPath"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "clientSecret": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId",
+                "clientSecret"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "apiKey"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "GetEntityEndpoint<Settings,\"type\">": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "properties": {
+            "select": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "type",
+                  "value"
+                ]
+              },
+              "description": "The list of fields to select"
+            }
+          },
+          "additionalProperties": false
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/definitions/SettingsTypeName",
+              "description": "The entity's unique identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "$ref": "#/definitions/Settings"
+        }
+      },
+      "required": [
+        "query",
+        "url",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for getting a single entity"
+    },
+    "PostEndpoint<Settings,\"type\">": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/WithOptionalId%3CSettings%2C%22type%22%3E"
+        },
+        "result": {
+          "$ref": "#/definitions/Settings"
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for creating new entities"
+    },
+    "WithOptionalId<Settings,\"type\">": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/SettingsTypeName"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "avatarsPath": {
+                  "type": "string"
+                },
+                "subtitlesPath": {
+                  "type": "string"
+                },
+                "tempPath": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "avatarsPath",
+                "subtitlesPath",
+                "tempPath"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "clientSecret": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId",
+                "clientSecret"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "clientId"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "apiKey": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "apiKey"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
+}

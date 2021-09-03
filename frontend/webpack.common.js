@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const webpack = require('webpack')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 
 module.exports = {
   entry: './src/index.tsx',
@@ -18,6 +19,10 @@ module.exports = {
       APP_VERSION: require('./package.json').version,
       BUILD_DATE: new Date().toISOString(),
       SERVICE_URL: 'http://localhost:9090/api',
+    }),
+    new MonacoWebpackPlugin({
+      // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
+      languages: ['json'],
     }),
   ],
   module: {

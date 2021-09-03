@@ -25,6 +25,11 @@ export const apiValues: SchemaGenerationSetting[] = [
     outputFile: './src/schemas/auth-api.json',
     type: '*',
   },
+  {
+    inputFile: './src/apis/settings-api.ts',
+    outputFile: './src/schemas/settings-api.json',
+    type: '*',
+  },
 ]
 
 export const exec = async (): Promise<void> => {

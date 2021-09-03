@@ -26,6 +26,7 @@ export const useAuthApi = (injector: Injector) => {
       credentials: true,
       origins: ['http://localhost:8080'],
       headers: ['cache', 'content-type'],
+      methods: ['GET', 'POST', 'PUT'],
     },
     api: {
       GET: {

@@ -4,6 +4,7 @@ import '@furystack/repository'
 import { injector } from './config'
 import { attachShutdownHandler } from './shutdown-handler'
 import { useAuthApi } from './apis/auth'
+import { useSettingsApi } from './apis/settings'
 
 injector.useHttpAuthentication({
   enableBasicAuth: false,
@@ -12,5 +13,6 @@ injector.useHttpAuthentication({
 })
 
 useAuthApi(injector)
+useSettingsApi(injector)
 
 attachShutdownHandler(injector)
