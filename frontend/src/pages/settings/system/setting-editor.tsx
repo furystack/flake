@@ -68,6 +68,7 @@ export const SettingEditor: FC<{ setting: SettingsTypeName; data: Settings }> = 
         value={dataValue}
         options={{
           smoothScrolling: true,
+          automaticLayout: true,
         }}
         onChange={() => {
           /** */

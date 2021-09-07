@@ -2,7 +2,6 @@ import { Menu } from 'antd'
 import {
   VideoCameraOutlined,
   AuditOutlined,
-  EuroOutlined,
   LogoutOutlined,
   SettingOutlined,
   UserOutlined,
@@ -26,10 +25,6 @@ const messages = defineMessages({
   music: {
     id: 'FlakeLayout.Header.Music',
     defaultMessage: 'Music',
-  },
-  money: {
-    id: 'FlakeLayout.Header.Money',
-    defaultMessage: 'Money',
   },
   settings: {
     id: 'FlakeLayout.Header.Settings',
@@ -97,11 +92,6 @@ export const FlakeHeader = () => {
         <Menu.Item key="/music" icon={<AuditOutlined />}>
           <Link to="/music">
             <FormattedMessage {...messages.music} />
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="/money" icon={<EuroOutlined />}>
-          <Link to="/money">
-            <FormattedMessage {...messages.money} />
           </Link>
         </Menu.Item>
         <Menu.SubMenu icon={<SettingOutlined />} key="/settings" title={intl.formatMessage(messages.settings)}>
