@@ -1,5 +1,6 @@
 import { ResponseError } from '@furystack/rest-client-fetch'
-import { Result, Skeleton } from 'antd'
+import { CircularProgress } from '@mui/material'
+import { Result } from 'antd'
 import { User } from 'common'
 import { CurrentUserContext } from '../hooks/use-current-user'
 import { useCurrentUserFetcher } from '../hooks/use-current-user-fetcher'
@@ -12,7 +13,7 @@ export const Initializer = () => {
   if (currentUser.isLoading && !currentUser.data) {
     return (
       <div style={{ padding: '5em', width: '100%', height: '100%' }}>
-        <Skeleton />
+        <CircularProgress />
       </div>
     )
   }
