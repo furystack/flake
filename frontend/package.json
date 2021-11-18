@@ -46,5 +46,7 @@
     "webpack-dev-server": "^4.5.0",
     "webpack-merge": "^5.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "monaco-editor": "^0.30.1"
+  }
 }
