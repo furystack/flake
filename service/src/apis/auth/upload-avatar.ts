@@ -30,7 +30,7 @@ export const UploadAvatar: RequestAction<{ result: { success: boolean } }> = asy
     throw new RequestError('No avatar file', 400)
   }
 
-  await injector.getInstance(AvatarService).saveFromTempFile({ user, tempFilePath: file.path })
+  await injector.getInstance(AvatarService).saveFromTempFile({ user, tempFilePath: file.filepath })
 
   return JsonResult({ success: true })
 }
