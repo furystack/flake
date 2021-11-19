@@ -44,8 +44,7 @@ export const FlakeHeader = () => {
         }}>
         <HeaderLink
           to="/"
-          isActive={() => false}
-          sx={{ flexGrow: 1 }}
+          sx={{ flexGrow: 1, background: 'transparent !important' }}
           title={
             <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
               Flake
@@ -58,9 +57,9 @@ export const FlakeHeader = () => {
 
         <HeaderLink to="/user/profile" icon={<Person />} title={<FormattedMessage {...messages.profile} />} />
         <HeaderLink
+          sx={{ background: 'transparent !important' }}
           to="/"
           onClick={logoutAction}
-          isActive={() => false}
           icon={<Logout />}
           title={<FormattedMessage {...messages.logout} />}
         />

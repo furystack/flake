@@ -9,7 +9,7 @@ export const SystemSettingsSider: FC<{ active?: SettingsTypeName }> = ({ active 
       <Menu mode="inline" defaultSelectedKeys={active ? [active] : []} style={{ height: '100%', borderRight: 0 }}>
         {SettingsTypeNames.map((setting) => (
           <Menu.Item key={setting}>
-            <Link to={`/settings/system/${setting}`}>{setting}</Link>
+            <Link to={`/settings/system/${setting.toLowerCase()}`}>{setting}</Link>
           </Menu.Item>
         ))}
       </Menu>

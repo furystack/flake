@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@emotion/react'
+import { SnackbarProvider } from 'notistack'
+
 import * as en from '../localization/en.json'
 import * as hu from '../localization/hu.json'
 
@@ -23,8 +25,9 @@ export const Main: FC = () => {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-
-          <Initializer />
+          <SnackbarProvider maxSnack={5}>
+            <Initializer />
+          </SnackbarProvider>
         </ThemeProvider>
       </QueryClientProvider>
     </IntlProvider>

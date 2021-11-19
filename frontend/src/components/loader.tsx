@@ -1,5 +1,6 @@
-import { Result, Skeleton } from 'antd'
+import { Skeleton } from '@mui/material'
 import { FC, useEffect, useState } from 'react'
+import { ErrorPage } from '../pages/error'
 
 export interface LoaderProps {
   load: () => Promise<JSX.Element>
@@ -29,7 +30,7 @@ export const Loader: FC<LoaderProps> = ({ load, loader, errorComponent }) => {
   }
 
   if (error) {
-    return errorComponent?.(error) || <Result {...(error as any)} />
+    return errorComponent?.(error) || <ErrorPage error={error} />
   }
 
   return loader?.() || <Skeleton />

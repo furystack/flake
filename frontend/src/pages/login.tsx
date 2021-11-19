@@ -1,9 +1,11 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { GithubOutlined, GoogleOutlined } from '@ant-design/icons'
-import { Button, Form, Input, notification, Tabs, Typography } from 'antd'
 import { User } from 'common'
 import { useQueryClient } from 'react-query'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
+import { Button, Tab, TextField, Typography } from '@mui/material'
+import { useSnackbar } from 'notistack'
+import { TabContext, TabList, TabPanel } from '@mui/lab'
 import { useAuthApiContext } from '../hooks/use-auth-api'
 import { useGoogleAuth } from '../hooks/use-google-auth'
 
@@ -49,121 +51,95 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
   const intl = useIntl()
 
   const googleAuth = useGoogleAuth()
+  const snack = useSnackbar()
 
-  const login = async (values: { email: string; password: string }) => {
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const [tabValue, setTabValue] = useState<'login' | 'signUp'>('login')
+
+  const login = async () => {
     try {
       const response = await callApi({
         method: 'POST',
         action: '/login',
         body: {
-          username: values.email,
-          password: values.password,
+          username,
+          password,
         },
       })
       props.onLoggedIn(response.result)
       queryClient.invalidateQueries('GET_CURRENT_USER')
     } catch (error) {
-      notification.error({ message: intl.formatMessage(messages.invalidEmailOrPassword) })
+      snack.enqueueSnackbar(intl.formatMessage(messages.invalidEmailOrPassword), { variant: 'error' })
     }
   }
 
   return (
     <div className="loginContainer" style={{ padding: '5em' }}>
       {/* <img src={Logo} style={{ height: 140, margin: '20px auto' }} /> */}
-      <Typography.Title level={3} style={{ margin: '0 auto 50px', color: '#00417A' }}>
-        Flake
-      </Typography.Title>
-      <Tabs type="card" defaultActiveKey="1" size="large">
-        <Tabs.TabPane tab={intl.formatMessage(messages.login)} key="1">
-          <Form layout="vertical" onFinish={login} data-testid="login-form">
-            <Form.Item
+      <Typography variant="h1">Flake</Typography>
+      <TabContext value={tabValue}>
+        <TabList onChange={(_ev, newValue) => setTabValue(newValue)}>
+          <Tab value="login" label={<FormattedMessage {...messages.login} />} />
+          <Tab value="signUp" label={<FormattedMessage {...messages.signUp} />} />
+        </TabList>
+        <TabPanel value="login">
+          <form onSubmit={login} data-testid="login-form">
+            <TextField
               label={<FormattedMessage {...messages.email} />}
-              name="email"
-              rules={[{ required: true, message: intl.formatMessage(messages.missingOrWrongEmail) }]}>
-              <Input type="email" />
-            </Form.Item>
-
-            <Form.Item
+              type="email"
+              onChange={(ev) => setUsername(ev.target.value)}
+              required
+            />
+            <TextField
+              type="password"
+              onChange={(ev) => setPassword(ev.target.value)}
+              required
               label={<FormattedMessage {...messages.password} />}
-              name="password"
-              rules={[{ required: true, message: intl.formatMessage(messages.missingPassword) }]}>
-              <Input type="password" />
-            </Form.Item>
+            />
 
-            <Form.Item>
-              <Button htmlType="submit" type="primary" style={{ marginRight: 10 }}>
-                <FormattedMessage {...messages.login} />
-              </Button>
-              <Button
-                htmlType="button"
-                type="default"
-                style={{ marginRight: 10 }}
-                onClick={() => {
-                  googleAuth.login()
-                }}>
-                <GoogleOutlined />
-              </Button>
-              <Button
-                htmlType="button"
-                type="default"
-                style={{ marginRight: 10 }}
-                onClick={() => {
-                  alert('TODO')
-                }}>
-                <GithubOutlined />
-              </Button>
-            </Form.Item>
-          </Form>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab={intl.formatMessage(messages.signUp)} key="2">
-          <Form layout="vertical" onFinish={login} data-testid="login-form">
-            <Form.Item
-              label={<FormattedMessage {...messages.email} />}
-              name="email"
-              rules={[{ required: true, message: intl.formatMessage(messages.missingOrWrongEmail) }]}>
-              <Input type="email" />
-            </Form.Item>
+            <Button type="submit">
+              <FormattedMessage {...messages.login} />
+            </Button>
+            <Button
+              onClick={() => {
+                googleAuth.login()
+              }}>
+              <GoogleOutlined />
+            </Button>
+            <Button
+              onClick={() => {
+                alert('TODO')
+              }}>
+              <GithubOutlined />
+            </Button>
+          </form>
+        </TabPanel>
+        <TabPanel value="signUp">
+          <form onSubmit={login} data-testid="login-form">
+            <TextField required type="email" label={<FormattedMessage {...messages.email} />} />
+            <TextField required type="password" label={<FormattedMessage {...messages.password} />} />
+            <TextField required type="password" label={<FormattedMessage {...messages.confirmPassword} />} />
 
-            <Form.Item
-              label={<FormattedMessage {...messages.password} />}
-              name="password"
-              rules={[{ required: true, message: intl.formatMessage(messages.missingPassword) }]}>
-              <Input type="password" />
-            </Form.Item>
-
-            <Form.Item
-              label={<FormattedMessage {...messages.confirmPassword} />}
-              name="password"
-              rules={[{ required: true, message: intl.formatMessage(messages.missingPassword) }]}>
-              <Input type="password" />
-            </Form.Item>
-
-            <Form.Item>
-              <Button htmlType="submit" type="primary" style={{ marginRight: 10 }}>
-                <FormattedMessage {...messages.login} />
-              </Button>
-              <Button
-                htmlType="button"
-                type="default"
-                style={{ marginRight: 10 }}
-                onClick={() => {
-                  googleAuth.login()
-                }}>
-                <GoogleOutlined />
-              </Button>
-              <Button
-                htmlType="button"
-                type="default"
-                style={{ marginRight: 10 }}
-                onClick={() => {
-                  alert('TODO')
-                }}>
-                <GithubOutlined />
-              </Button>
-            </Form.Item>
-          </Form>
-        </Tabs.TabPane>
-      </Tabs>
+            <Button type="submit">
+              <FormattedMessage {...messages.login} />
+            </Button>
+            <Button
+              onClick={() => {
+                googleAuth.login()
+              }}>
+              <GoogleOutlined />
+            </Button>
+            <Button
+              onClick={() => {
+                alert('TODO')
+              }}>
+              <GithubOutlined />
+            </Button>
+          </form>
+        </TabPanel>
+      </TabContext>
     </div>
   )
 }

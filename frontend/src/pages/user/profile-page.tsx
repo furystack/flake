@@ -1,9 +1,9 @@
-import { Layout } from 'antd'
+import { Container, Typography } from '@mui/material'
 
 export const ProfilePage = () => {
   return (
-    <Layout.Content>
-      <Layout.Header>Profile</Layout.Header>
-    </Layout.Content>
+    <Container>
+      <Typography variant="h1">Profile</Typography>
+    </Container>
   )
 }

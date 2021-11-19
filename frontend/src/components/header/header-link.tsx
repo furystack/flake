@@ -24,7 +24,7 @@ export const HeaderLink = styled(HeaderNavLink)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.getContrastText(theme.palette.primary.dark),
   },
-  '& svg:first-child': {
+  '& svg:first-of-type': {
     marginRight: '.2em',
   },
 }))
