@@ -1,7 +1,7 @@
 import { Container, Box } from '@mui/material'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { FlakeHeader } from '../components/header'
-import { Routes } from './routes'
+import { MainRoutes } from './main-routes'
 
 export const FlakeApplicationLayout = () => (
   <Router>
@@ -9,7 +9,7 @@ export const FlakeApplicationLayout = () => (
       <FlakeHeader />
       <Box marginTop={'64px'} flexDirection="row">
         <Container className="site-layout-background">
-          <Routes />
+          <MainRoutes />
         </Container>
       </Box>
     </Box>
