@@ -61,6 +61,7 @@ export const FlakeHeader = () => {
           to="/"
           onClick={logoutAction}
           icon={<Logout />}
+          data-testid="logout-button"
           title={<FormattedMessage {...messages.logout} />}
         />
       </Toolbar>
