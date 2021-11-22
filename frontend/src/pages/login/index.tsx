@@ -43,7 +43,17 @@ export const LoginPage: FC = () => {
   const [tabValue, setTabValue] = useState<'login' | 'signUp'>('login')
 
   return (
-    <div className="loginContainer" style={{ padding: '5em' }}>
+    <div
+      className="loginContainer"
+      style={{
+        padding: '5em',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '75%',
+        alignContent: 'center',
+        justifyContent: 'center',
+      }}>
       {/* <img src={Logo} style={{ height: 140, margin: '20px auto' }} /> */}
       <Typography variant="h1">Flake</Typography>
       <TabContext value={tabValue}>

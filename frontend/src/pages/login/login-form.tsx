@@ -1,8 +1,8 @@
-import { Button, TextField } from '@mui/material'
+import { Button, Grid, TextField } from '@mui/material'
 import { useSnackbar } from 'notistack'
 import { FC, FormEvent, useCallback, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { GitHub, Google } from '@mui/icons-material'
 import { useAuthApiContext } from '../../hooks/use-auth-api'
 import { useGoogleAuth } from '../../hooks/use-google-auth'
@@ -32,46 +32,65 @@ export const LoginForm: FC = () => {
             password,
           },
         })
-        queryClient.invalidateQueries('GET_CURRENT_USER')
+        //
       } catch (error) {
         snack.enqueueSnackbar(intl.formatMessage(loginPageMessages.invalidEmailOrPassword), { variant: 'error' })
       }
     },
-    [callApi, intl, password, queryClient, snack, username],
+    [callApi, intl, password, snack, username],
   )
 
-  return (
-    <form onSubmit={login} data-testid="login-form">
-      <TextField
-        label={<FormattedMessage {...loginPageMessages.email} />}
-        type="email"
-        onChange={(ev) => {
-          setUsername(ev.target.value)
-        }}
-        required
-      />
-      <TextField
-        type="password"
-        onChange={(ev) => setPassword(ev.target.value)}
-        required
-        label={<FormattedMessage {...loginPageMessages.password} />}
-      />
+  const { mutate, isLoading } = useMutation(login, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('GET_CURRENT_USER')
+    },
+  })
 
-      <Button type="submit">
-        <FormattedMessage {...loginPageMessages.login} />
-      </Button>
-      <Button
-        onClick={() => {
-          googleAuth.login()
-        }}>
-        <Google />
-      </Button>
-      <Button
-        onClick={() => {
-          alert('TODO')
-        }}>
-        <GitHub />
-      </Button>
+  return (
+    <form onSubmit={mutate} data-testid="login-form">
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+          <TextField
+            disabled={isLoading}
+            fullWidth
+            label={<FormattedMessage {...loginPageMessages.email} />}
+            type="email"
+            onChange={(ev) => {
+              setUsername(ev.target.value)
+            }}
+            required
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            disabled={isLoading}
+            fullWidth
+            type="password"
+            onChange={(ev) => setPassword(ev.target.value)}
+            required
+            label={<FormattedMessage {...loginPageMessages.password} />}
+          />
+        </Grid>
+        <Grid item xs={12} display="flex" justifyContent="flex-end">
+          <Button
+            disabled={isLoading}
+            onClick={() => {
+              googleAuth.login()
+            }}>
+            <Google />
+          </Button>
+          <Button
+            disabled={isLoading}
+            onClick={() => {
+              alert('TODO')
+            }}>
+            <GitHub />
+          </Button>
+          <Button type="submit" color="primary" variant="contained" disabled={isLoading}>
+            <FormattedMessage {...loginPageMessages.login} />
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   )
 }
