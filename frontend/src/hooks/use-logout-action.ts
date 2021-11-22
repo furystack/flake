@@ -1,4 +1,4 @@
-import { notification } from 'antd'
+import { useSnackbar } from 'notistack'
 import { defineMessage, useIntl } from 'react-intl'
 import { useQueryClient } from 'react-query'
 import { useAuthApiContext } from './use-auth-api'
@@ -12,12 +12,13 @@ export const useLogoutAction = () => {
   const api = useAuthApiContext()
   const queryClient = useQueryClient()
   const intl = useIntl()
+  const snacks = useSnackbar()
   return async () => {
     try {
       await api({ method: 'POST', action: '/logout' })
     } finally {
       queryClient.invalidateQueries('GET_CURRENT_USER')
-      notification.success({ message: intl.formatMessage(logout) })
+      snacks.enqueueSnackbar(intl.formatMessage(logout), { variant: 'success' })
     }
   }
 }

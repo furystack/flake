@@ -1,9 +1,9 @@
-import { Layout } from 'antd'
+import { Container, Typography } from '@mui/material'
 
 export const VideoPage = () => {
   return (
-    <Layout.Content>
-      <Layout.Header>Video</Layout.Header>
-    </Layout.Content>
+    <Container>
+      <Typography variant="h1">Videos</Typography>
+    </Container>
   )
 }

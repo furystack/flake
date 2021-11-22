@@ -1,29 +1,17 @@
-import { Layout } from 'antd'
-import { Content } from 'antd/lib/layout/layout'
+import { Container, Box } from '@mui/material'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { FlakeHeader } from './header'
-import { Routes } from './routes'
+import { FlakeHeader } from '../components/header'
+import { MainRoutes } from './main-routes'
 
 export const FlakeApplicationLayout = () => (
   <Router>
-    <Layout
-      style={{
-        height: '100%',
-      }}>
+    <Box height="100%" marginTop={0} top={0}>
       <FlakeHeader />
-      <Layout style={{ marginTop: 64, flexDirection: 'row' }}>
-        <Layout>
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: 0,
-              minHeight: 280,
-              overflow: 'auto',
-            }}>
-            <Routes />
-          </Content>
-        </Layout>
-      </Layout>
-    </Layout>
+      <Box marginTop={'64px'} flexDirection="row" height="100%">
+        <Container className="site-layout-background" sx={{ height: '100%' }}>
+          <MainRoutes />
+        </Container>
+      </Box>
+    </Box>
   </Router>
 )

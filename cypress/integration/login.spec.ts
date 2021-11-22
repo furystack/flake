@@ -13,19 +13,17 @@ describe('Login and logout', () => {
       .type('password')
       .blur()
 
-    cy.log('Logging in...')
-    cy.get('[data-testid="login-form"] button[type=submit]').should('be.visible').click()
+    cy.get('[data-testid="login-form"] button[type=submit]').should('be.visible').scrollIntoView().click()
 
     // Assert dashboard content
 
-    cy.log('Logging out...')
     cy.get('[data-testid="logout-button"]').should('be.visible').click()
 
     cy.log('Checking Login form...')
     cy.get('[data-testid="login-form"]').should('be.visible')
   })
 
-  it.skip('Should warn for missing / wrong email', () => {
+  it('Should warn for missing / wrong email', () => {
     cy.visit('/')
     cy.get('[data-testid="login-form"] button[type=submit]').click()
     //assert error message
