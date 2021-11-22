@@ -1,9 +1,9 @@
-import { Layout } from 'antd'
+import { Container, Typography } from '@mui/material'
 
 export const MusicPage = () => {
   return (
-    <Layout.Content>
-      <Layout.Header>Music</Layout.Header>
-    </Layout.Content>
+    <Container>
+      <Typography variant="h1">Music</Typography>
+    </Container>
   )
 }

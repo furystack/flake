@@ -1,9 +1,9 @@
-import { message } from 'antd'
 import { SettingsTypeName, EntityApiSchemas, Settings } from 'common'
 import { ResponseError } from '@furystack/rest-client-fetch'
 import { FC, useEffect, useMemo, useRef } from 'react'
 import MonacoEditor, { monaco } from 'react-monaco-editor'
 import { useQueryClient } from 'react-query'
+import { useSnackbar } from 'notistack'
 import { useHotkey } from '../../../hooks/use-hotkex'
 import { useSettingsApiContext } from '../../../hooks/use-settings-api'
 
@@ -13,6 +13,7 @@ export const SettingEditor: FC<{ setting: SettingsTypeName; data: Settings }> = 
   const monacoRef = useRef<MonacoEditor>(null)
   const api = useSettingsApiContext()
   const queryClient = useQueryClient()
+  const snack = useSnackbar()
 
   useHotkey({
     key: 's',
@@ -20,8 +21,7 @@ export const SettingEditor: FC<{ setting: SettingsTypeName; data: Settings }> = 
     stopPropagation: true,
     preventDefault: true,
     onTriggered: async () => {
-      const key = `message-${setting}`
-      message.loading({ content: 'Saving setting...', key })
+      const s = snack.enqueueSnackbar('Saving setting...', { variant: 'info' })
       try {
         await api({
           method: 'PUT',
@@ -31,15 +31,16 @@ export const SettingEditor: FC<{ setting: SettingsTypeName; data: Settings }> = 
             type: setting,
           },
         })
-        message.success({ content: 'Settings saved', key })
+
+        snack.enqueueSnackbar('Settings saved', { variant: 'success' })
         queryClient.invalidateQueries(['GET_SYSTEM_SETTING'])
       } catch (error) {
-        message.error({
-          content:
-            error instanceof ResponseError ? (await error.response.json()).message || 'Something went wrong' : error,
-          key,
-          duration: null,
-        })
+        snack.enqueueSnackbar(
+          error instanceof ResponseError ? (await error.response.json()).message || 'Something went wrong' : error,
+          { variant: 'error' },
+        )
+      } finally {
+        snack.closeSnackbar(s)
       }
     },
   })

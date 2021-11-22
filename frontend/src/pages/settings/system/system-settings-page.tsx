@@ -1,4 +1,4 @@
-import { Skeleton } from 'antd'
+import { Skeleton } from '@mui/material'
 import { SettingsTypeName } from 'common'
 import { FC } from 'react'
 import { useQuery } from 'react-query'
