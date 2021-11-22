@@ -13,7 +13,7 @@
   "devDependencies": {
     "@types/formidable": "^2.0.0",
     "@types/got": "^9.6.12",
-    "@types/node": "^16.11.8",
+    "@types/node": "^16.11.9",
     "@types/uuid": "^8.3.3"
   },
   "dependencies": {
