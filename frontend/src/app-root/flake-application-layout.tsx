@@ -7,8 +7,8 @@ export const FlakeApplicationLayout = () => (
   <Router>
     <Box height="100%" marginTop={0} top={0}>
       <FlakeHeader />
-      <Box marginTop={'64px'} flexDirection="row">
-        <Container className="site-layout-background">
+      <Box marginTop={'64px'} flexDirection="row" height="100%">
+        <Container className="site-layout-background" sx={{ height: '100%' }}>
           <MainRoutes />
         </Container>
       </Box>

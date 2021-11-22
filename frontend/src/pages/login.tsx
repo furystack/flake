@@ -1,11 +1,11 @@
 import { FC, FormEvent, useCallback, useState } from 'react'
-import { GithubOutlined, GoogleOutlined } from '@ant-design/icons'
 import { User } from 'common'
 import { useQueryClient } from 'react-query'
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl'
 import { Button, Tab, TextField, Typography } from '@mui/material'
 import { useSnackbar } from 'notistack'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { GitHub, Google } from '@mui/icons-material'
 import { useAuthApiContext } from '../hooks/use-auth-api'
 import { useGoogleAuth } from '../hooks/use-google-auth'
 
@@ -110,13 +110,13 @@ export const LoginPage: FC<{ onLoggedIn?: (user: User) => void }> = (props) => {
               onClick={() => {
                 googleAuth.login()
               }}>
-              <GoogleOutlined />
+              <Google />
             </Button>
             <Button
               onClick={() => {
                 alert('TODO')
               }}>
-              <GithubOutlined />
+              <GitHub />
             </Button>
           </form>
         </TabPanel>
@@ -133,13 +133,13 @@ export const LoginPage: FC<{ onLoggedIn?: (user: User) => void }> = (props) => {
               onClick={() => {
                 googleAuth.login()
               }}>
-              <GoogleOutlined />
+              <Google />
             </Button>
             <Button
               onClick={() => {
                 alert('TODO')
               }}>
-              <GithubOutlined />
+              <GitHub />
             </Button>
           </form>
         </TabPanel>

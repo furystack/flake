@@ -1,18 +1,21 @@
-import { Menu } from 'antd'
-import Sider from 'antd/lib/layout/Sider'
+import { Drawer, List, ListItemButton, ListItemText } from '@mui/material'
 import { SettingsTypeName, SettingsTypeNames } from 'common'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 export const SystemSettingsSider: FC<{ active?: SettingsTypeName }> = ({ active }) => {
   return (
-    <Sider width={200} className="site-layout-background" collapsedWidth={0} breakpoint="sm">
-      <Menu mode="inline" defaultSelectedKeys={active ? [active] : []} style={{ height: '100%', borderRight: 0 }}>
+    <Drawer variant="permanent" sx={{ zIndex: (theme) => theme.zIndex.appBar - 1 }}>
+      <List sx={{ paddingTop: '64px' }}>
         {SettingsTypeNames.map((setting) => (
-          <Menu.Item key={setting}>
-            <Link to={`/settings/system/${setting.toLowerCase()}`}>{setting}</Link>
-          </Menu.Item>
+          <ListItemButton
+            component={Link}
+            key={setting}
+            sx={{ fontWeight: active ? 'bolder' : 'initial' }}
+            to={`/settings/system/${setting.toLowerCase()}`}>
+            <ListItemText primary={setting} />
+          </ListItemButton>
         ))}
-      </Menu>
-    </Sider>
+      </List>
+    </Drawer>
   )
 }
