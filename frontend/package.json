@@ -7,6 +7,7 @@
     "build": "webpack --config webpack.prod.js",
     "build:stats": "webpack --config webpack.prod.js --profile --json > stats.json",
     "extract-messages": "extract-messages -l=en,hu -o ./src/localization -d en --flat true dist/**/**.js",
+    "bundle-analyzer": "webpack --config webpack.bundle-analyzer.js",
     "start": "webpack serve --config webpack.dev.js"
   },
   "author": "",
