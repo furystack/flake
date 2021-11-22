@@ -16,8 +16,6 @@ module.exports = merge(common, {
   },
   optimization: {
     minimize: true,
-    usedExports: true,
-    sideEffects: false,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -31,8 +29,6 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      // useTypescriptIncrementalApi: true,
-      // silent: process.argv.includes('--json'),
     }),
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
