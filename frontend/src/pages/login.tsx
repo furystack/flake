@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, FormEvent, useCallback, useState } from 'react'
 import { GithubOutlined, GoogleOutlined } from '@ant-design/icons'
 import { User } from 'common'
 import { useQueryClient } from 'react-query'
@@ -44,7 +44,7 @@ const messages = defineMessages({
   },
 })
 
-export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
+export const LoginPage: FC<{ onLoggedIn?: (user: User) => void }> = (props) => {
   const queryClient = useQueryClient()
 
   const callApi = useAuthApiContext()
@@ -58,22 +58,26 @@ export const LoginPage: FC<{ onLoggedIn: (user: User) => void }> = (props) => {
 
   const [tabValue, setTabValue] = useState<'login' | 'signUp'>('login')
 
-  const login = async () => {
-    try {
-      const response = await callApi({
-        method: 'POST',
-        action: '/login',
-        body: {
-          username,
-          password,
-        },
-      })
-      props.onLoggedIn(response.result)
-      queryClient.invalidateQueries('GET_CURRENT_USER')
-    } catch (error) {
-      snack.enqueueSnackbar(intl.formatMessage(messages.invalidEmailOrPassword), { variant: 'error' })
-    }
-  }
+  const login = useCallback(
+    async (ev: FormEvent) => {
+      ev.preventDefault()
+      try {
+        const response = await callApi({
+          method: 'POST',
+          action: '/login',
+          body: {
+            username,
+            password,
+          },
+        })
+        props.onLoggedIn?.(response.result)
+        queryClient.invalidateQueries('GET_CURRENT_USER')
+      } catch (error) {
+        snack.enqueueSnackbar(intl.formatMessage(messages.invalidEmailOrPassword), { variant: 'error' })
+      }
+    },
+    [callApi, intl, password, props, queryClient, snack, username],
+  )
 
   return (
     <div className="loginContainer" style={{ padding: '5em' }}>
