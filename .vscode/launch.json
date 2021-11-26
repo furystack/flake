@@ -19,6 +19,23 @@
       "program": "${workspaceFolder}/service/src/seed.ts",
       "cwd": "${workspaceFolder}/service",
       "outFiles": ["${workspaceFolder}/service/dist/seed.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Current Jest tests",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "node",
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/jest/bin/jest.js",
+
+        "${fileBasenameNoExtension}",
+        "--runInBand",
+        "--testTimeout=99999999"
+      ],
+      "port": 9229,
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

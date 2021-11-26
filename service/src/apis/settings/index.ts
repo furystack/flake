@@ -5,10 +5,13 @@ import { GetSystemSetting } from './get-system-setting'
 import { GetSystemSettings } from './get-system-settings'
 import { PutSystemSetting } from './put-system-setting'
 
-export const useSettingsApi = (injector: Injector) => {
+export const useSettingsApi = (
+  injector: Injector,
+  port = parseInt(process.env.APP_SERVICE_PORT as string, 10) || 9090,
+) => {
   injector.useRestService<SettingsApi>({
     root: '/api/settings',
-    port: parseInt(process.env.APP_SERVICE_PORT as string, 10) || 9090,
+    port,
     cors: {
       credentials: true,
       origins: ['http://localhost:8080'],

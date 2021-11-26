@@ -11,6 +11,7 @@
     "build": "tsc -b"
   },
   "devDependencies": {
+    "@furystack/rest-client-got": "^1.0.31",
     "@types/formidable": "^2.0.0",
     "@types/got": "^9.6.12",
     "@types/node": "^16.11.9",
