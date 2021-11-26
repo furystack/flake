@@ -4,43 +4,38 @@ import { TestContext } from '../../services/test-context'
 describe('AcceptTermsAction', () => {
   it('Should add Accept Terms role to the current user', async () => {
     await usingAsync(TestContext.create(), async (testContext) => {
-      try {
-        const username = 'test-accept-terms-user'
-        const password = 'test-password'
-        await testContext.seedTestUser({
-          username,
-          roles: [],
-          registrationDate: new Date().toISOString(),
-          password,
-        })
+      const username = 'test-accept-terms-user'
+      const password = 'test-password'
+      await testContext.seedTestUser({
+        username,
+        roles: [],
+        registrationDate: new Date().toISOString(),
+        password,
+      })
 
-        const loginResponse = await testContext.callAuthClient({
-          method: 'POST',
-          action: '/login',
-          body: { username, password },
-        })
-        const loginResult = loginResponse.getJson()
+      const loginResponse = await testContext.callAuthClient({
+        method: 'POST',
+        action: '/login',
+        body: { username, password },
+      })
+      const loginResult = loginResponse.getJson()
 
-        expect(loginResult.username).toBe(username)
-        expect(loginResult.roles).toEqual([])
+      expect(loginResult.username).toBe(username)
+      expect(loginResult.roles).toEqual([])
 
-        await testContext.callAuthClient({
-          method: 'POST',
-          action: '/accept-terms',
-        })
+      await testContext.callAuthClient({
+        method: 'POST',
+        action: '/accept-terms',
+      })
 
-        const currentUserResponse = await testContext.callAuthClient({
-          method: 'GET',
-          action: '/currentUser',
-        })
-        const currentUser = await currentUserResponse.getJson()
+      const currentUserResponse = await testContext.callAuthClient({
+        method: 'GET',
+        action: '/currentUser',
+      })
+      const currentUser = await currentUserResponse.getJson()
 
-        expect(currentUser.username).toBe(username)
-        expect(currentUser.roles.includes('terms-accepted')).toBeTruthy()
-      } catch (error) {
-        console.error(error)
-        throw error
-      }
+      expect(currentUser.username).toBe(username)
+      expect(currentUser.roles.includes('terms-accepted')).toBeTruthy()
     })
   })
 })
