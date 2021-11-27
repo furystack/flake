@@ -7,8 +7,8 @@ import { TestContext } from '../../services/test-context'
 
 describe('GetOauthDataAction', () => {
   it('Should throw if providers are not set up', async () => {
+    expect.assertions(2)
     await usingAsync(TestContext.create(), async (testContext) => {
-      expect.assertions(1)
       try {
         await testContext.callAuthClient({
           method: 'GET',
@@ -17,6 +17,7 @@ describe('GetOauthDataAction', () => {
       } catch (error) {
         if (error instanceof RequestError) {
           expect(error.response?.statusCode).toBe(500)
+          expect(error.response?.body).toContain('Failed to retrieve oauth provider data.')
         }
       }
     })
