@@ -6,11 +6,22 @@ export const getOauthData: RequestAction<{
     githubClientId: string
   }
 }> = async ({ injector }) => {
-  const googleSettings = await injector.getSettings('GOOGLE')
-  const githubSettings = await injector.getSettings('GITHUB')
+  try {
+    const googleSettings = await injector.getSettings('GOOGLE')
+    const githubSettings = await injector.getSettings('GITHUB')
 
-  return JsonResult({
-    githubClientId: githubSettings.value.clientId,
-    googleClientId: googleSettings.value.clientId,
-  })
+    return JsonResult({
+      githubClientId: githubSettings.value.clientId,
+      googleClientId: googleSettings.value.clientId,
+    })
+  } catch (error) {
+    const message = 'Failed to retrieve oauth provider data.'
+    await injector.logger.withScope('getOauthData').error({
+      message,
+      data: {
+        error,
+      },
+    })
+    throw new Error(message)
+  }
 }

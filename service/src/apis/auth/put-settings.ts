@@ -11,6 +11,11 @@ export const PutSettings: RequestAction<{
   const user = await injector.getCurrentUser()
   const userSettings = injector.getDataSetFor(UserSettings, 'username')
   const postedSettings = await getBody()
-  await userSettings.update(injector, user.username, postedSettings)
+  const exists = await userSettings.get(injector, user.username, ['username'])
+  if (exists) {
+    await userSettings.update(injector, user.username, postedSettings)
+  } else {
+    await userSettings.add(injector, { ...postedSettings, username: user.username })
+  }
   return JsonResult(postedSettings)
 })

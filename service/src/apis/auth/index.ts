@@ -18,7 +18,7 @@ import { GoogleRegisterAction } from './google-register'
 import { RegisterAction } from './register'
 import { PutSettings } from './put-settings'
 
-export const useAuthApi = (injector: Injector, port = parseInt(process.env.APP_SERVICE_PORT as string, 10) || 9090) => {
+export const useAuthApi = (injector: Injector, port: number) => {
   injector.useRestService<AuthApi>({
     root: '/api/auth',
     port,
