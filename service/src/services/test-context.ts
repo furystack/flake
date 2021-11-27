@@ -8,6 +8,7 @@ import { setupRepository } from '../repository'
 import { DefaultSession, HttpAuthenticationSettings } from '@furystack/rest-service'
 import { ToughCookieJar } from 'got'
 import '@furystack/logging'
+import '../extensions'
 
 let contextIndex = Math.round(Math.random() * 100)
 
