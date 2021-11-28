@@ -16,8 +16,6 @@ describe('PutSettingsAction', () => {
     username: testUser.username,
     theme: 'dark',
   }
-
-  it.todo('Should not work for non-admin users')
   it('Should create a new setting if it does not exists', async () => {
     await usingAsync(TestContext.create(), async (testContext) => {
       const settingsStore = testContext.injector.getInstance(StoreManager).getStoreFor(UserSettings, 'username')

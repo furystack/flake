@@ -3,10 +3,9 @@ import { UserSettings } from 'common'
 
 export const GetSettings: RequestAction<{
   result: UserSettings
-  url: { username: string }
-}> = async ({ injector, getUrlParams }) => {
+}> = async ({ injector }) => {
   const profileStore = injector.getDataSetFor(UserSettings, 'username')
-  const { username } = getUrlParams()
+  const { username } = await injector.getCurrentUser()
   const result = await profileStore.find(injector, {
     filter: {
       username: { $eq: username },
