@@ -30,12 +30,13 @@ export const useAuthApi = (injector: Injector, port: number) => {
     },
     api: {
       GET: {
-        '/currentUser': GetCurrentUser as RequestAction<{ result: User }>,
+        '/current/user': GetCurrentUser as RequestAction<{ result: User }>,
+        '/current/settings': Authenticate()(GetSettings),
+        '/current/profile': Authenticate()(GetProfile),
         '/oauth-data': getOauthData,
         '/loginProviderDetails': Authenticate()(GetLoginProviderDetails),
         '/profiles/:username': Authenticate()(GetProfile),
         '/profiles/:username/avatar': Authenticate()(GetAvatar),
-        '/settings': Authenticate()(GetSettings),
       },
       POST: {
         '/login': LoginAction as any,
@@ -52,7 +53,7 @@ export const useAuthApi = (injector: Injector, port: number) => {
         '/register': RegisterAction,
       },
       PUT: {
-        '/settings': PutSettings,
+        '/current/settings': PutSettings,
       },
     },
   })

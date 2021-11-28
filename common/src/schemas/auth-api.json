@@ -538,11 +538,35 @@
         "GET": {
           "type": "object",
           "properties": {
-            "/currentUser": {
+            "/current/user": {
               "type": "object",
               "properties": {
                 "result": {
                   "$ref": "#/definitions/User"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "additionalProperties": false
+            },
+            "/current/settings": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/UserSettings"
+                }
+              },
+              "required": [
+                "result"
+              ],
+              "additionalProperties": false
+            },
+            "/current/profile": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/Profile"
                 }
               },
               "required": [
@@ -606,28 +630,7 @@
               "type": "object",
               "properties": {
                 "result": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "username": {
-                      "type": "string"
-                    },
-                    "displayName": {
-                      "type": "string"
-                    },
-                    "description": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "username",
-                    "displayName",
-                    "description"
-                  ],
-                  "additionalProperties": false
+                  "$ref": "#/definitions/Profile"
                 },
                 "url": {
                   "type": "object",
@@ -670,27 +673,16 @@
                 "url"
               ],
               "additionalProperties": false
-            },
-            "/settings": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/UserSettings"
-                }
-              },
-              "required": [
-                "result"
-              ],
-              "additionalProperties": false
             }
           },
           "required": [
-            "/currentUser",
+            "/current/user",
+            "/current/settings",
+            "/current/profile",
             "/loginProviderDetails",
             "/oauth-data",
             "/profiles/:username",
-            "/profiles/:username/avatar",
-            "/settings"
+            "/profiles/:username/avatar"
           ],
           "additionalProperties": false
         },
@@ -867,16 +859,67 @@
         "PUT": {
           "type": "object",
           "properties": {
-            "/settings": {
+            "/current/settings": {
               "$ref": "#/definitions/PutSettings"
             }
           },
           "required": [
-            "/settings"
+            "/current/settings"
           ],
           "additionalProperties": false
         },
         "DELETE": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "HEAD": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "CONNECT": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "TRACE": {
           "type": "object",
           "additionalProperties": {
             "type": "object",
@@ -988,8 +1031,83 @@
             ],
             "additionalProperties": false
           }
+        },
+        "HEAD": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "CONNECT": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "TRACE": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "result": {},
+              "url": {},
+              "query": {},
+              "body": {},
+              "headers": {}
+            },
+            "required": [
+              "result"
+            ],
+            "additionalProperties": false
+          }
         }
       },
+      "additionalProperties": false
+    },
+    "Profile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "displayName",
+        "description"
+      ],
       "additionalProperties": false
     },
     "GoogleAccount": {

@@ -18,7 +18,9 @@ export type PostRegister = { body: { email: string; password: string }; result: 
 
 export interface AuthApi extends RestApi {
   GET: {
-    '/currentUser': { result: User }
+    '/current/user': { result: User }
+    '/current/settings': { result: UserSettings }
+    '/current/profile': { result: Profile }
     '/loginProviderDetails': {
       result: { google?: GoogleAccount; github?: GithubAccount; hasPassword: boolean }
     }
@@ -28,9 +30,8 @@ export interface AuthApi extends RestApi {
         githubClientId: string
       }
     }
-    '/profiles/:username': { result: Omit<Profile, 'userSettings'>; url: { username: string } }
+    '/profiles/:username': { result: Profile; url: { username: string } }
     '/profiles/:username/avatar': { result: any; url: { username: string } }
-    '/settings': { result: UserSettings }
   }
   POST: {
     '/login': PostLogin
@@ -47,6 +48,6 @@ export interface AuthApi extends RestApi {
     '/accept-terms': { result: { success: boolean } }
   }
   PUT: {
-    '/settings': PutSettings
+    '/current/settings': PutSettings
   }
 }
