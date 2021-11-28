@@ -2451,7 +2451,7 @@
           "type": "object",
           "properties": {
             "findOptions": {
-              "$ref": "#/definitions/FindOptions%3CGoogleAccount%2C(%22id%22%7C%22googleId%22%7C%22googleApiPayload%22%7C%22username%22%7C%22accountLinkDate%22)%5B%5D%3E"
+              "$ref": "#/definitions/FindOptions%3CGoogleAccount%2C(%22googleId%22%7C%22googleApiPayload%22%7C%22username%22%7C%22accountLinkDate%22)%5B%5D%3E"
             }
           },
           "additionalProperties": false
@@ -2467,7 +2467,7 @@
       "additionalProperties": false,
       "description": "Rest endpoint model for getting / querying collections"
     },
-    "FindOptions<GoogleAccount,(\"id\"|\"googleId\"|\"googleApiPayload\"|\"username\"|\"accountLinkDate\")[]>": {
+    "FindOptions<GoogleAccount,(\"googleId\"|\"googleApiPayload\"|\"username\"|\"accountLinkDate\")[]>": {
       "type": "object",
       "properties": {
         "top": {
@@ -2481,13 +2481,6 @@
         "order": {
           "type": "object",
           "properties": {
-            "id": {
-              "type": "string",
-              "enum": [
-                "ASC",
-                "DESC"
-              ]
-            },
             "googleId": {
               "type": "string",
               "enum": [
@@ -2525,7 +2518,6 @@
           "items": {
             "type": "string",
             "enum": [
-              "id",
               "googleId",
               "googleApiPayload",
               "username",
@@ -2569,49 +2561,6 @@
           "items": {
             "$ref": "#/definitions/FilterType%3CGoogleAccount%3E"
           }
-        },
-        "id": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "$regex": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "$eq": {
-                  "type": "string"
-                },
-                "$ne": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "$in": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "$nin": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              },
-              "additionalProperties": false
-            }
-          ]
         },
         "googleId": {
           "anyOf": [
@@ -2976,9 +2925,6 @@
     "GoogleAccount": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "googleId": {
           "type": "number"
         },
@@ -3034,7 +2980,6 @@
         }
       },
       "required": [
-        "id",
         "googleId",
         "googleApiPayload",
         "username",
@@ -3053,7 +2998,6 @@
               "items": {
                 "type": "string",
                 "enum": [
-                  "id",
                   "googleId",
                   "googleApiPayload",
                   "username",
@@ -3151,9 +3095,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "googleId": {
           "type": "number"
         },
@@ -3211,8 +3152,7 @@
       "required": [
         "accountLinkDate",
         "googleApiPayload",
-        "googleId",
-        "id"
+        "googleId"
       ]
     },
     "PostEndpoint<Profile,\"username\">": {

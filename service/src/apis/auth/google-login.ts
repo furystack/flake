@@ -14,7 +14,7 @@ export const GoogleLoginAction: RequestAction<PostGoogleLogin> = Validate({
 })(async ({ injector, getBody, response }) => {
   const loginData = await getBody()
 
-  const googleAccountStore = await injector.getInstance(StoreManager).getStoreFor(GoogleAccount, 'id')
+  const googleAccountStore = await injector.getInstance(StoreManager).getStoreFor(GoogleAccount, 'username')
   const userStore = await injector.getInstance(StoreManager).getStoreFor(User, 'username')
   const googleUserData = await injector.getInstance(GoogleLoginService).getGoogleUserData(loginData.token)
   if (!googleUserData.email_verified) {

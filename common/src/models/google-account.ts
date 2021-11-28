@@ -1,6 +1,4 @@
 export class GoogleAccount {
-  public id!: string
-
   public googleId!: number
 
   public googleApiPayload!: {

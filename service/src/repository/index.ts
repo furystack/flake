@@ -1,11 +1,16 @@
 import { Injector } from '@furystack/inject'
 import '@furystack/repository/dist/injector-extension'
-import { setupSettingsRepository } from './settings'
-import { setupUserSettingsRepository } from './user-settings'
-import { setupUserRepository } from './users'
+import { setupGithubAccountsDataSet } from './githubAccount'
+import { setupGoogleAccountsDataSet } from './googleAccount'
+import { setupSettingsDataSet } from './settings'
+import { setupUserSettingsDataSet } from './user-settings'
+import { setupUsersDataSet } from './users'
 
 export const setupRepository = (i: Injector) => {
-  i.setupRepository(setupUserRepository)
-  i.setupRepository(setupSettingsRepository)
-  i.setupRepository(setupUserSettingsRepository)
+  i.setupRepository(setupUsersDataSet)
+    .setupRepository(setupSettingsDataSet)
+    .setupRepository(setupUserSettingsDataSet)
+    .setupRepository(setupGoogleAccountsDataSet)
+    .setupRepository(setupGoogleAccountsDataSet)
+    .setupRepository(setupGithubAccountsDataSet)
 }

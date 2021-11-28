@@ -17,13 +17,9 @@ export const GetLoginProviderDetails: RequestAction<{
     .find({ top: 1, filter: { username: { $eq: currentUser.username } } })
   const hasPassword = loadedUser.password ? true : false
 
-  const [google] = await storeManager
-    .getStoreFor(GoogleAccount, 'id')
-    .find({ top: 1, filter: { username: { $eq: currentUser.username } } })
+  const google = await storeManager.getStoreFor(GoogleAccount, 'username').get(currentUser.username)
 
-  const [github] = await storeManager
-    .getStoreFor(GithubAccount, 'username')
-    .find({ top: 1, filter: { username: { $eq: currentUser.username } } })
+  const github = await storeManager.getStoreFor(GithubAccount, 'username').get(currentUser.username)
 
   return JsonResult({ hasPassword, google, github })
 }

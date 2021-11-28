@@ -2,7 +2,7 @@ import { Repository } from '@furystack/repository'
 import { Role, User } from 'common'
 import { authenticatedOnly } from './authenticatedOnly'
 
-export const setupUserRepository = (repo: Repository) =>
+export const setupUsersDataSet = (repo: Repository) =>
   repo.createDataSet(User, 'username', {
     authorizeAdd: authenticatedOnly,
     authorizeUpdate: authenticatedOnly,

@@ -160,9 +160,6 @@
     "GoogleAccount": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "googleId": {
           "type": "number"
         },
@@ -218,7 +215,6 @@
         }
       },
       "required": [
-        "id",
         "googleId",
         "googleApiPayload",
         "username",

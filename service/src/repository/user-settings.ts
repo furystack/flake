@@ -1,7 +1,7 @@
 import { Repository } from '@furystack/repository'
 import { UserSettings } from 'common'
 
-export const setupUserSettingsRepository = (repo: Repository) => {
+export const setupUserSettingsDataSet = (repo: Repository) => {
   repo.createDataSet(UserSettings, 'username', {
     authorizeAdd: async ({ injector, entity }) => {
       const { username } = await injector.getCurrentUser()

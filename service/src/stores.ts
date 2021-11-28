@@ -32,7 +32,7 @@ export const setupStores = (i: Injector) => {
       })
       .useFileSystem({
         model: GoogleAccount,
-        primaryKey: 'id',
+        primaryKey: 'username',
         fileName: getFileName(GoogleAccount),
         tickMs: STORE_TICK_MS,
       })
