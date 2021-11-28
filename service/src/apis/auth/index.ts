@@ -22,6 +22,8 @@ import { GithubRegisterAction } from './github-register'
 import { GoogleLoginAction } from '@furystack/auth-google'
 import { GoogleRegisterAction } from './google-register'
 import { RegisterAction } from './register'
+import { AttachGoogleAccountAction } from './attach-google-account'
+import { AttachGithubAccount } from './attach-github-account'
 
 export const useAuthApi = (injector: Injector, port: number) => {
   injector.useRestService<AuthApi>({
@@ -67,10 +69,10 @@ export const useAuthApi = (injector: Injector, port: number) => {
         '/googleLogin': GoogleLoginAction as any,
         '/googleRegister': GoogleRegisterAction,
         '/register': RegisterAction,
-        '/googleAccount': createPostEndpoint({ model: GoogleAccount, primaryKey: 'username' }),
-        '/githubAccount': createPostEndpoint({ model: GithubAccount, primaryKey: 'username' }),
         '/profile': createPostEndpoint({ model: Profile, primaryKey: 'username' }),
         '/settings': createPostEndpoint({ model: UserSettings, primaryKey: 'username' }),
+        '/attachGoogleAccount': AttachGoogleAccountAction,
+        '/attachGithubAccount': AttachGithubAccount,
       },
       PATCH: {
         '/profile/:id': createPatchEndpoint({ model: Profile, primaryKey: 'username' }),

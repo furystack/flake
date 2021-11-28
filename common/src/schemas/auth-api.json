@@ -628,17 +628,85 @@
               ],
               "additionalProperties": false
             },
-            "/githubAccount": {
-              "$ref": "#/definitions/PostEndpoint%3CGithubAccount%2C%22username%22%3E"
-            },
-            "/googleAccount": {
-              "$ref": "#/definitions/PostEndpoint%3CGoogleAccount%2C%22username%22%3E"
-            },
             "/profile": {
               "$ref": "#/definitions/PostEndpoint%3CProfile%2C%22username%22%3E"
             },
             "/settings": {
               "$ref": "#/definitions/PostEndpoint%3CUserSettings%2C%22username%22%3E"
+            },
+            "/attachGoogleAccount": {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "token"
+                  ],
+                  "additionalProperties": false
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "body",
+                "result"
+              ],
+              "additionalProperties": false
+            },
+            "/attachGithubAccount": {
+              "type": "object",
+              "properties": {
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "clientId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "clientId"
+                  ],
+                  "additionalProperties": false
+                },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "body",
+                "result"
+              ],
+              "additionalProperties": false
             }
           },
           "required": [
@@ -650,10 +718,10 @@
             "/githubRegister",
             "/logout",
             "/accept-terms",
-            "/githubAccount",
-            "/googleAccount",
             "/profile",
-            "/settings"
+            "/settings",
+            "/attachGoogleAccount",
+            "/attachGithubAccount"
           ],
           "additionalProperties": false
         },
@@ -3033,127 +3101,6 @@
       ],
       "additionalProperties": false,
       "description": "Endpoint model for getting a single entity"
-    },
-    "PostEndpoint<GithubAccount,\"username\">": {
-      "type": "object",
-      "properties": {
-        "body": {
-          "$ref": "#/definitions/WithOptionalId%3CGithubAccount%2C%22username%22%3E"
-        },
-        "result": {
-          "$ref": "#/definitions/GithubAccount"
-        }
-      },
-      "required": [
-        "body",
-        "result"
-      ],
-      "additionalProperties": false,
-      "description": "Endpoint model for creating new entities"
-    },
-    "WithOptionalId<GithubAccount,\"username\">": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "githubId": {
-          "type": "number"
-        },
-        "githubApiPayload": {
-          "$ref": "#/definitions/GithubApiPayload"
-        },
-        "username": {
-          "type": "string"
-        },
-        "accountLinkDate": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "accountLinkDate",
-        "githubApiPayload",
-        "githubId"
-      ]
-    },
-    "PostEndpoint<GoogleAccount,\"username\">": {
-      "type": "object",
-      "properties": {
-        "body": {
-          "$ref": "#/definitions/WithOptionalId%3CGoogleAccount%2C%22username%22%3E"
-        },
-        "result": {
-          "$ref": "#/definitions/GoogleAccount"
-        }
-      },
-      "required": [
-        "body",
-        "result"
-      ],
-      "additionalProperties": false,
-      "description": "Endpoint model for creating new entities"
-    },
-    "WithOptionalId<GoogleAccount,\"username\">": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "googleId": {
-          "type": "number"
-        },
-        "googleApiPayload": {
-          "type": "object",
-          "properties": {
-            "iss": {
-              "type": "string"
-            },
-            "sub": {
-              "type": "number"
-            },
-            "email": {
-              "type": "string"
-            },
-            "email_verified": {
-              "type": "boolean"
-            },
-            "name": {
-              "type": "string"
-            },
-            "picture": {
-              "type": "string"
-            },
-            "given_name": {
-              "type": "string"
-            },
-            "family_name": {
-              "type": "string"
-            },
-            "locale": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "iss",
-            "sub",
-            "email",
-            "email_verified",
-            "name",
-            "picture",
-            "given_name",
-            "family_name",
-            "locale"
-          ],
-          "additionalProperties": false
-        },
-        "username": {
-          "type": "string"
-        },
-        "accountLinkDate": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "accountLinkDate",
-        "googleApiPayload",
-        "googleId"
-      ]
     },
     "PostEndpoint<Profile,\"username\">": {
       "type": "object",

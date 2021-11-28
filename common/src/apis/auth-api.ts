@@ -53,10 +53,10 @@ export interface AuthApi extends RestApi {
     '/githubRegister': PostGithubRegister
     '/logout': { result: unknown }
     '/accept-terms': { result: { success: boolean } }
-    '/githubAccount': PostEndpoint<GithubAccount, 'username'>
-    '/googleAccount': PostEndpoint<GoogleAccount, 'username'>
     '/profile': PostEndpoint<Profile, 'username'>
     '/settings': PostEndpoint<UserSettings, 'username'>
+    '/attachGoogleAccount': { body: { token: string }; result: { success: true } }
+    '/attachGithubAccount': { body: { code: string; clientId: string }; result: { success: true } }
   }
   PATCH: {
     '/profile/:id': PatchEndpoint<Profile, 'username'>
