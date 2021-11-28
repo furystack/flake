@@ -1,4 +1,4 @@
-import { RestApi } from '@furystack/rest'
+import { GetCollectionEndpoint, GetEntityEndpoint, RestApi } from '@furystack/rest'
 import { User, GoogleAccount, GithubAccount, Profile, UserSettings } from '../models'
 
 export type PutSettings = { body: UserSettings; result: UserSettings }
@@ -21,7 +21,7 @@ export interface AuthApi extends RestApi {
     '/current/user': { result: User }
     '/current/settings': { result: UserSettings }
     '/current/profile': { result: Profile }
-    '/loginProviderDetails': {
+    '/current/loginProviderDetails': {
       result: { google?: GoogleAccount; github?: GithubAccount; hasPassword: boolean }
     }
     '/oauth-data': {
@@ -30,8 +30,9 @@ export interface AuthApi extends RestApi {
         githubClientId: string
       }
     }
-    '/profiles/:username': { result: Profile; url: { username: string } }
-    '/profiles/:username/avatar': { result: any; url: { username: string } }
+    '/profiles': GetCollectionEndpoint<Profile>
+    '/profiles/:id': GetEntityEndpoint<Profile, 'id'>
+    '/avatars/:username': { result: any; url: { username: string } }
   }
   POST: {
     '/login': PostLogin

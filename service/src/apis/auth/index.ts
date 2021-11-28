@@ -1,6 +1,14 @@
 import { Injector } from '@furystack/inject'
-import { AuthApi, User } from 'common'
-import { Authenticate, GetCurrentUser, LoginAction, LogoutAction, RequestAction } from '@furystack/rest-service'
+import { AuthApi, Profile, User } from 'common'
+import {
+  Authenticate,
+  createGetCollectionEndpoint,
+  createGetEntityEndpoint,
+  GetCurrentUser,
+  LoginAction,
+  LogoutAction,
+  RequestAction,
+} from '@furystack/rest-service'
 import { AcceptTermsAction } from './accept-terms'
 import { getOauthData } from './get-oauth-data'
 import { GetLoginProviderDetails } from './get-login-provider-details'
@@ -33,10 +41,11 @@ export const useAuthApi = (injector: Injector, port: number) => {
         '/current/user': GetCurrentUser as RequestAction<{ result: User }>,
         '/current/settings': Authenticate()(GetSettings),
         '/current/profile': Authenticate()(GetProfile),
+        '/current/loginProviderDetails': Authenticate()(GetLoginProviderDetails),
         '/oauth-data': getOauthData,
-        '/loginProviderDetails': Authenticate()(GetLoginProviderDetails),
-        '/profiles/:username': Authenticate()(GetProfile),
-        '/profiles/:username/avatar': Authenticate()(GetAvatar),
+        '/profiles': Authenticate()(createGetCollectionEndpoint({ model: Profile, primaryKey: 'id' })),
+        '/profiles/:id': Authenticate()(createGetEntityEndpoint({ model: Profile, primaryKey: 'id' })),
+        '/avatars/:username': Authenticate()(GetAvatar),
       },
       POST: {
         '/login': LoginAction as any,
