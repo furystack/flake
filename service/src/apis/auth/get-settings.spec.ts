@@ -22,7 +22,7 @@ describe('GetSettingsAction', () => {
       await testContext.loginWithUser(testUser)
       const settingsResult = await testContext.callAuthClient({
         method: 'GET',
-        action: '/current/settings',
+        action: '/settings/current',
       })
       expect(settingsResult.getJson()).toStrictEqual({ username: testUser.username, theme: 'dark' })
     })
@@ -38,7 +38,7 @@ describe('GetSettingsAction', () => {
       await testContext.loginWithUser(testUser)
       const settingsResult = await testContext.callAuthClient({
         method: 'GET',
-        action: '/current/settings',
+        action: '/settings/current',
       })
 
       expect(settingsResult.getJson()).toStrictEqual(userSettings)

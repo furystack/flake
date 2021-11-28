@@ -1,7 +1,8 @@
 import { Injector } from '@furystack/inject'
-import { AuthApi, Profile, User } from 'common'
+import { AuthApi, Profile, User, UserSettings } from 'common'
 import {
   Authenticate,
+  Authorize,
   createGetCollectionEndpoint,
   createGetEntityEndpoint,
   GetCurrentUser,
@@ -25,6 +26,7 @@ import { GoogleLoginAction } from '@furystack/auth-google'
 import { GoogleRegisterAction } from './google-register'
 import { RegisterAction } from './register'
 import { PutSettings } from './put-settings'
+import { PutProfile } from './put-profile'
 
 export const useAuthApi = (injector: Injector, port: number) => {
   injector.useRestService<AuthApi>({
@@ -38,13 +40,17 @@ export const useAuthApi = (injector: Injector, port: number) => {
     },
     api: {
       GET: {
-        '/current/user': GetCurrentUser as RequestAction<{ result: User }>,
-        '/current/settings': Authenticate()(GetSettings),
-        '/current/profile': Authenticate()(GetProfile),
-        '/current/loginProviderDetails': Authenticate()(GetLoginProviderDetails),
+        '/users': Authorize('admin')(createGetCollectionEndpoint({ model: User, primaryKey: 'username' })),
+        '/users/current': GetCurrentUser as RequestAction<{ result: User }>,
+        '/users/:id': Authorize('admin')(createGetEntityEndpoint({ model: User, primaryKey: 'username' })),
+        '/settings': Authorize('admin')(createGetCollectionEndpoint({ model: UserSettings, primaryKey: 'username' })),
+        '/settings/current': Authenticate()(GetSettings),
+        '/settings/:id': Authorize('admin')(createGetEntityEndpoint({ model: UserSettings, primaryKey: 'username' })),
+        '/profiles': Authenticate()(createGetCollectionEndpoint({ model: Profile, primaryKey: 'username' })),
+        '/profiles/current': Authenticate()(GetProfile),
+        '/profiles/:id': Authenticate()(createGetEntityEndpoint({ model: Profile, primaryKey: 'username' })),
+        '/loginProviderDetails': Authenticate()(GetLoginProviderDetails),
         '/oauth-data': getOauthData,
-        '/profiles': Authenticate()(createGetCollectionEndpoint({ model: Profile, primaryKey: 'id' })),
-        '/profiles/:id': Authenticate()(createGetEntityEndpoint({ model: Profile, primaryKey: 'id' })),
         '/avatars/:username': Authenticate()(GetAvatar),
       },
       POST: {
@@ -62,7 +68,8 @@ export const useAuthApi = (injector: Injector, port: number) => {
         '/register': RegisterAction,
       },
       PUT: {
-        '/current/settings': PutSettings,
+        '/settings/current': PutSettings,
+        '/profile/current': PutProfile,
       },
     },
   })

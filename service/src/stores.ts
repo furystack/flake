@@ -44,7 +44,7 @@ export const setupStores = (i: Injector) => {
       })
       .useFileSystem({
         model: Profile,
-        primaryKey: 'id',
+        primaryKey: 'username',
         fileName: getFileName(Profile),
         tickMs: STORE_TICK_MS,
       })

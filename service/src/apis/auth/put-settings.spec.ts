@@ -26,7 +26,7 @@ describe('PutSettingsAction', () => {
       await testContext.loginWithUser(testUser)
       await testContext.callAuthClient({
         method: 'PUT',
-        action: '/current/settings',
+        action: '/settings/current',
         body: testSettings,
       })
 
@@ -48,7 +48,7 @@ describe('PutSettingsAction', () => {
       await testContext.loginWithUser(testUser)
       await testContext.callAuthClient({
         method: 'PUT',
-        action: '/current/settings',
+        action: '/settings/current',
         body: updatedSetting,
       })
 

@@ -41,7 +41,7 @@ export const GithubRegisterAction: RequestAction<PostGithubRegister> = Validate(
     githubApiPayload,
   })
 
-  await storeManager.getStoreFor(Profile, 'id').add({
+  await storeManager.getStoreFor(Profile, 'username').add({
     username: newUser.username,
     displayName: newUser.username,
     description: '',

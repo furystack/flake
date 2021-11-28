@@ -1,8 +1,8 @@
 import { GetCollectionEndpoint, GetEntityEndpoint, RestApi } from '@furystack/rest'
 import { User, GoogleAccount, GithubAccount, Profile, UserSettings } from '../models'
 
-export type PutSettings = { body: UserSettings; result: UserSettings }
-
+export type PutSettings = { body: Omit<UserSettings, 'username'>; result: UserSettings }
+export type PutProfile = { body: Omit<Profile, 'username'>; result: Profile }
 export type PostAttachGithubAccount = { body: { code: string; clientId: string }; result: Omit<User, 'password'> }
 export type PostGithubRegister = { body: { code: string; clientId: string }; result: Omit<User, 'password'> }
 export type PostGithubLogin = { body: { code: string; clientId: string }; result: Omit<User, 'password'> }
@@ -18,10 +18,16 @@ export type PostRegister = { body: { email: string; password: string }; result: 
 
 export interface AuthApi extends RestApi {
   GET: {
-    '/current/user': { result: User }
-    '/current/settings': { result: UserSettings }
-    '/current/profile': { result: Profile }
-    '/current/loginProviderDetails': {
+    '/users': GetCollectionEndpoint<User>
+    '/users/:id': GetEntityEndpoint<User, 'username'>
+    '/users/current': { result: User }
+    '/settings': GetCollectionEndpoint<UserSettings>
+    '/settings/:id': GetEntityEndpoint<UserSettings, 'username'>
+    '/settings/current': { result: UserSettings }
+    '/profiles': GetCollectionEndpoint<Profile>
+    '/profiles/:id': GetEntityEndpoint<Profile, 'username'>
+    '/profiles/current': { result: Profile }
+    '/loginProviderDetails': {
       result: { google?: GoogleAccount; github?: GithubAccount; hasPassword: boolean }
     }
     '/oauth-data': {
@@ -30,8 +36,6 @@ export interface AuthApi extends RestApi {
         githubClientId: string
       }
     }
-    '/profiles': GetCollectionEndpoint<Profile>
-    '/profiles/:id': GetEntityEndpoint<Profile, 'id'>
     '/avatars/:username': { result: any; url: { username: string } }
   }
   POST: {
@@ -49,6 +53,7 @@ export interface AuthApi extends RestApi {
     '/accept-terms': { result: { success: boolean } }
   }
   PUT: {
-    '/current/settings': PutSettings
+    '/settings/current': PutSettings
+    '/profile/current': PutProfile
   }
 }

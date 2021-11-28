@@ -47,7 +47,7 @@ export const seed = async (i: Injector): Promise<void> => {
   logger.verbose({ message: 'Seeding data...' })
   const sm = i.getInstance(StoreManager)
   const userStore = sm.getStoreFor(User, 'username')
-  const profileStore = sm.getStoreFor(Profile, 'id')
+  const profileStore = sm.getStoreFor(Profile, 'username')
   const testUser = await getOrCreate(
     { filter: { username: { $eq: 'testuser@gmail.com' } } },
     {

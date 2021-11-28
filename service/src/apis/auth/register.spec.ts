@@ -20,7 +20,7 @@ describe('RegisterAction', () => {
 
       const currentUserResponse = await testContext.callAuthClient({
         method: 'GET',
-        action: '/current/user',
+        action: '/users/current',
       })
       const currentUser = await currentUserResponse.getJson()
 

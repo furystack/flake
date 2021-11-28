@@ -24,7 +24,7 @@ export const RegisterAction: RequestAction<PostRegister> = async ({ injector, ge
     registrationDate: new Date().toISOString(),
   })
   const newUser = created[0]
-  await storeManager.getStoreFor(Profile, 'id').add({
+  await storeManager.getStoreFor(Profile, 'username').add({
     username: newUser.username,
     displayName: newUser.username,
     description: '',

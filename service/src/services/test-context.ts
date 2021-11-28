@@ -48,7 +48,7 @@ export class TestContext implements Disposable {
   private setupStores() {
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: DefaultSession, primaryKey: 'sessionId' })))
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: User, primaryKey: 'username' })))
-    this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: Profile, primaryKey: 'id' })))
+    this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: Profile, primaryKey: 'username' })))
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: UserSettings, primaryKey: 'username' })))
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: Settings, primaryKey: 'type' })))
   }

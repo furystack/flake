@@ -329,9 +329,6 @@
     "Profile": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "username": {
           "type": "string"
         },
@@ -343,7 +340,6 @@
         }
       },
       "required": [
-        "id",
         "username",
         "displayName",
         "description"

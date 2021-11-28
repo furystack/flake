@@ -63,7 +63,7 @@ export const GoogleRegisterAction: RequestAction<PostGoogleRegister> = async ({ 
     accountLinkDate: registrationDate,
   })
 
-  await storeManager.getStoreFor(Profile, 'id').add({
+  await storeManager.getStoreFor(Profile, 'username').add({
     username: userToAdd.username,
     displayName: googleUserData.name,
     description: '',
