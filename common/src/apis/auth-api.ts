@@ -23,10 +23,8 @@ export interface AuthApi extends RestApi {
     '/users/current': { result: User }
     '/settings': GetCollectionEndpoint<UserSettings>
     '/settings/:id': GetEntityEndpoint<UserSettings, 'username'>
-    '/settings/current': { result: UserSettings }
     '/profiles': GetCollectionEndpoint<Profile>
     '/profiles/:id': GetEntityEndpoint<Profile, 'username'>
-    '/profiles/current': { result: Profile }
     '/loginProviderDetails': {
       result: { google?: GoogleAccount; github?: GithubAccount; hasPassword: boolean }
     }

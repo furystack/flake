@@ -13,9 +13,7 @@ import {
 import { AcceptTermsAction } from './accept-terms'
 import { getOauthData } from './get-oauth-data'
 import { GetLoginProviderDetails } from './get-login-provider-details'
-import { GetProfile } from './get-profile'
 import { GetAvatar } from './get-avatar'
-import { GetSettings } from './get-settings'
 import { AttachGithubAccount } from './attach-github-account'
 import { AttachGoogleAccountAction } from './attach-google-account'
 import { DetachGithubAccount } from './detach-github-account'
@@ -44,10 +42,8 @@ export const useAuthApi = (injector: Injector, port: number) => {
         '/users/current': GetCurrentUser as RequestAction<{ result: User }>,
         '/users/:id': Authorize('admin')(createGetEntityEndpoint({ model: User, primaryKey: 'username' })),
         '/settings': Authorize('admin')(createGetCollectionEndpoint({ model: UserSettings, primaryKey: 'username' })),
-        '/settings/current': Authenticate()(GetSettings),
         '/settings/:id': Authorize('admin')(createGetEntityEndpoint({ model: UserSettings, primaryKey: 'username' })),
         '/profiles': Authenticate()(createGetCollectionEndpoint({ model: Profile, primaryKey: 'username' })),
-        '/profiles/current': Authenticate()(GetProfile),
         '/profiles/:id': Authenticate()(createGetEntityEndpoint({ model: Profile, primaryKey: 'username' })),
         '/loginProviderDetails': Authenticate()(GetLoginProviderDetails),
         '/oauth-data': getOauthData,

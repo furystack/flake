@@ -624,35 +624,11 @@
             "/settings/:id": {
               "$ref": "#/definitions/GetEntityEndpoint%3CUserSettings%2C%22username%22%3E"
             },
-            "/settings/current": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/UserSettings"
-                }
-              },
-              "required": [
-                "result"
-              ],
-              "additionalProperties": false
-            },
             "/profiles": {
               "$ref": "#/definitions/GetCollectionEndpoint%3CProfile%3E"
             },
             "/profiles/:id": {
               "$ref": "#/definitions/GetEntityEndpoint%3CProfile%2C%22username%22%3E"
-            },
-            "/profiles/current": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "$ref": "#/definitions/Profile"
-                }
-              },
-              "required": [
-                "result"
-              ],
-              "additionalProperties": false
             },
             "/loginProviderDetails": {
               "type": "object",
@@ -736,10 +712,8 @@
             "/users/current",
             "/settings",
             "/settings/:id",
-            "/settings/current",
             "/profiles",
             "/profiles/:id",
-            "/profiles/current",
             "/loginProviderDetails",
             "/oauth-data",
             "/avatars/:username"
