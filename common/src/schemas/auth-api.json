@@ -99,62 +99,6 @@
       ],
       "additionalProperties": false
     },
-    "PostAttachGithubAccount": {
-      "type": "object",
-      "properties": {
-        "body": {
-          "type": "object",
-          "properties": {
-            "code": {
-              "type": "string"
-            },
-            "clientId": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "code",
-            "clientId"
-          ],
-          "additionalProperties": false
-        },
-        "result": {
-          "type": "object",
-          "properties": {
-            "username": {
-              "type": "string"
-            },
-            "registrationDate": {
-              "type": "string"
-            },
-            "avatarFile": {
-              "type": "string"
-            },
-            "roles": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "terms-accepted",
-                  "admin"
-                ]
-              }
-            }
-          },
-          "required": [
-            "username",
-            "registrationDate",
-            "roles"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "body",
-        "result"
-      ],
-      "additionalProperties": false
-    },
     "PostGithubRegister": {
       "type": "object",
       "properties": {
@@ -319,111 +263,7 @@
       ],
       "additionalProperties": false
     },
-    "PostAttachGoogleAccount": {
-      "type": "object",
-      "properties": {
-        "body": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "token"
-          ],
-          "additionalProperties": false
-        },
-        "result": {
-          "type": "object",
-          "properties": {
-            "username": {
-              "type": "string"
-            },
-            "registrationDate": {
-              "type": "string"
-            },
-            "avatarFile": {
-              "type": "string"
-            },
-            "roles": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "terms-accepted",
-                  "admin"
-                ]
-              }
-            }
-          },
-          "required": [
-            "username",
-            "registrationDate",
-            "roles"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "body",
-        "result"
-      ],
-      "additionalProperties": false
-    },
     "PostGoogleRegister": {
-      "type": "object",
-      "properties": {
-        "body": {
-          "type": "object",
-          "properties": {
-            "token": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "token"
-          ],
-          "additionalProperties": false
-        },
-        "result": {
-          "type": "object",
-          "properties": {
-            "username": {
-              "type": "string"
-            },
-            "registrationDate": {
-              "type": "string"
-            },
-            "avatarFile": {
-              "type": "string"
-            },
-            "roles": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "terms-accepted",
-                  "admin"
-                ]
-              }
-            }
-          },
-          "required": [
-            "username",
-            "registrationDate",
-            "roles"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "body",
-        "result"
-      ],
-      "additionalProperties": false
-    },
-    "PostAttachGoogleLogin": {
       "type": "object",
       "properties": {
         "body": {
@@ -630,6 +470,18 @@
             "/profiles/:id": {
               "$ref": "#/definitions/GetEntityEndpoint%3CProfile%2C%22username%22%3E"
             },
+            "/githubAccounts": {
+              "$ref": "#/definitions/GetCollectionEndpoint%3CGithubAccount%3E"
+            },
+            "/githubAccounts/:id": {
+              "$ref": "#/definitions/GetEntityEndpoint%3CGithubAccount%2C%22username%22%3E"
+            },
+            "/googleAccounts": {
+              "$ref": "#/definitions/GetCollectionEndpoint%3CGoogleAccount%3E"
+            },
+            "/googleAccuonts/:id": {
+              "$ref": "#/definitions/GetEntityEndpoint%3CGoogleAccount%2C%22username%22%3E"
+            },
             "/loginProviderDetails": {
               "type": "object",
               "properties": {
@@ -714,6 +566,10 @@
             "/settings/:id",
             "/profiles",
             "/profiles/:id",
+            "/githubAccounts",
+            "/githubAccounts/:id",
+            "/googleAccounts",
+            "/googleAccuonts/:id",
             "/loginProviderDetails",
             "/oauth-data",
             "/avatars/:username"
@@ -735,95 +591,11 @@
             "/googleRegister": {
               "$ref": "#/definitions/PostGoogleRegister"
             },
-            "/attachGoogleAccount": {
-              "$ref": "#/definitions/PostAttachGoogleAccount"
-            },
-            "/detachGoogleAccount": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "object",
-                  "properties": {
-                    "username": {
-                      "type": "string"
-                    },
-                    "registrationDate": {
-                      "type": "string"
-                    },
-                    "avatarFile": {
-                      "type": "string"
-                    },
-                    "roles": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "enum": [
-                          "terms-accepted",
-                          "admin"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "username",
-                    "registrationDate",
-                    "roles"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "result"
-              ],
-              "additionalProperties": false
-            },
             "/githubLogin": {
               "$ref": "#/definitions/PostGithubLogin"
             },
             "/githubRegister": {
               "$ref": "#/definitions/PostGithubRegister"
-            },
-            "/attachGithubAccount": {
-              "$ref": "#/definitions/PostAttachGithubAccount"
-            },
-            "/detachGithubAccount": {
-              "type": "object",
-              "properties": {
-                "result": {
-                  "type": "object",
-                  "properties": {
-                    "username": {
-                      "type": "string"
-                    },
-                    "registrationDate": {
-                      "type": "string"
-                    },
-                    "avatarFile": {
-                      "type": "string"
-                    },
-                    "roles": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "enum": [
-                          "terms-accepted",
-                          "admin"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "username",
-                    "registrationDate",
-                    "roles"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "result"
-              ],
-              "additionalProperties": false
             },
             "/logout": {
               "type": "object",
@@ -855,6 +627,18 @@
                 "result"
               ],
               "additionalProperties": false
+            },
+            "/githubAccount": {
+              "$ref": "#/definitions/PostEndpoint%3CGithubAccount%2C%22username%22%3E"
+            },
+            "/googleAccount": {
+              "$ref": "#/definitions/PostEndpoint%3CGoogleAccount%2C%22username%22%3E"
+            },
+            "/profile": {
+              "$ref": "#/definitions/PostEndpoint%3CProfile%2C%22username%22%3E"
+            },
+            "/settings": {
+              "$ref": "#/definitions/PostEndpoint%3CUserSettings%2C%22username%22%3E"
             }
           },
           "required": [
@@ -862,51 +646,34 @@
             "/register",
             "/googleLogin",
             "/googleRegister",
-            "/attachGoogleAccount",
-            "/detachGoogleAccount",
             "/githubLogin",
             "/githubRegister",
-            "/attachGithubAccount",
-            "/detachGithubAccount",
             "/logout",
-            "/accept-terms"
+            "/accept-terms",
+            "/githubAccount",
+            "/googleAccount",
+            "/profile",
+            "/settings"
           ],
           "additionalProperties": false
         },
         "PATCH": {
           "type": "object",
-          "additionalProperties": {
-            "type": "object",
-            "properties": {
-              "result": {},
-              "url": {},
-              "query": {},
-              "body": {},
-              "headers": {}
-            },
-            "required": [
-              "result"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "PUT": {
-          "type": "object",
           "properties": {
-            "/settings/current": {
-              "$ref": "#/definitions/PutSettings"
+            "/profile/:id": {
+              "$ref": "#/definitions/PatchEndpoint%3CProfile%2C%22username%22%3E"
             },
-            "/profile/current": {
-              "$ref": "#/definitions/PutProfile"
+            "/settings/:id": {
+              "$ref": "#/definitions/PatchEndpoint%3CProfile%2C%22username%22%3E"
             }
           },
           "required": [
-            "/settings/current",
-            "/profile/current"
+            "/profile/:id",
+            "/settings/:id"
           ],
           "additionalProperties": false
         },
-        "DELETE": {
+        "PUT": {
           "type": "object",
           "additionalProperties": {
             "type": "object",
@@ -922,6 +689,22 @@
             ],
             "additionalProperties": false
           }
+        },
+        "DELETE": {
+          "type": "object",
+          "properties": {
+            "/githubAccount/:id": {
+              "$ref": "#/definitions/DeleteEndpoint%3CGithubAccount%2C%22username%22%3E"
+            },
+            "/googleAccount/:id": {
+              "$ref": "#/definitions/DeleteEndpoint%3CGoogleAccount%2C%22username%22%3E"
+            }
+          },
+          "required": [
+            "/githubAccount/:id",
+            "/googleAccount/:id"
+          ],
+          "additionalProperties": false
         },
         "HEAD": {
           "type": "object",
@@ -978,7 +761,8 @@
       "required": [
         "GET",
         "POST",
-        "PUT"
+        "PATCH",
+        "DELETE"
       ],
       "additionalProperties": false
     },
@@ -2143,102 +1927,297 @@
       "additionalProperties": false,
       "description": "Endpoint model for getting a single entity"
     },
-    "GoogleAccount": {
+    "GetCollectionEndpoint<GithubAccount>": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "googleId": {
-          "type": "number"
-        },
-        "googleApiPayload": {
+        "query": {
           "type": "object",
           "properties": {
-            "iss": {
-              "type": "string"
-            },
-            "sub": {
-              "type": "number"
-            },
-            "email": {
-              "type": "string"
-            },
-            "email_verified": {
-              "type": "boolean"
-            },
-            "name": {
-              "type": "string"
-            },
-            "picture": {
-              "type": "string"
-            },
-            "given_name": {
-              "type": "string"
-            },
-            "family_name": {
-              "type": "string"
-            },
-            "locale": {
-              "type": "string"
+            "findOptions": {
+              "$ref": "#/definitions/FindOptions%3CGithubAccount%2C(%22githubId%22%7C%22githubApiPayload%22%7C%22username%22%7C%22accountLinkDate%22)%5B%5D%3E"
             }
           },
-          "required": [
-            "iss",
-            "sub",
-            "email",
-            "email_verified",
-            "name",
-            "picture",
-            "given_name",
-            "family_name",
-            "locale"
-          ],
           "additionalProperties": false
         },
-        "username": {
-          "type": "string"
-        },
-        "accountLinkDate": {
-          "type": "string"
+        "result": {
+          "$ref": "#/definitions/GetCollectionResult%3CGithubAccount%3E"
         }
       },
       "required": [
-        "id",
-        "googleId",
-        "googleApiPayload",
-        "username",
-        "accountLinkDate"
+        "query",
+        "result"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "description": "Rest endpoint model for getting / querying collections"
     },
-    "GithubAccount": {
+    "FindOptions<GithubAccount,(\"githubId\"|\"githubApiPayload\"|\"username\"|\"accountLinkDate\")[]>": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
+        "top": {
+          "type": "number",
+          "description": "Limits the hits"
         },
-        "githubId": {
-          "type": "number"
+        "skip": {
+          "type": "number",
+          "description": "Skips the first N hit"
         },
-        "githubApiPayload": {
-          "$ref": "#/definitions/GithubApiPayload"
+        "order": {
+          "type": "object",
+          "properties": {
+            "githubId": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "githubApiPayload": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "username": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "accountLinkDate": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "description": "Sets up an order by a field and a direction"
         },
-        "username": {
-          "type": "string"
+        "select": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "githubId",
+              "githubApiPayload",
+              "username",
+              "accountLinkDate"
+            ]
+          },
+          "description": "The result set will be limited to these fields"
         },
-        "accountLinkDate": {
-          "type": "string"
+        "filter": {
+          "$ref": "#/definitions/FilterType%3CGithubAccount%3E",
+          "description": "The fields should match this filter"
         }
       },
-      "required": [
-        "id",
-        "githubId",
-        "githubApiPayload",
-        "username",
-        "accountLinkDate"
-      ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "description": "Type for default filtering model"
+    },
+    "FilterType<GithubAccount>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$and": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGithubAccount%3E"
+          }
+        },
+        "$not": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGithubAccount%3E"
+          }
+        },
+        "$nor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGithubAccount%3E"
+          }
+        },
+        "$or": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGithubAccount%3E"
+          }
+        },
+        "githubId": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$gt": {
+                  "type": "number"
+                },
+                "$gte": {
+                  "type": "number"
+                },
+                "$lt": {
+                  "type": "number"
+                },
+                "$lte": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "number"
+                },
+                "$ne": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "githubApiPayload": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "$ref": "#/definitions/GithubApiPayload"
+                },
+                "$ne": {
+                  "$ref": "#/definitions/GithubApiPayload"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/GithubApiPayload"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/GithubApiPayload"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "username": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$regex": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "string"
+                },
+                "$ne": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "accountLinkDate": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$regex": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "string"
+                },
+                "$ne": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
     },
     "GithubApiPayload": {
       "type": "object",
@@ -2371,6 +2350,1039 @@
         "updated_at"
       ],
       "additionalProperties": false
+    },
+    "GetCollectionResult<GithubAccount>": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number",
+          "description": "The Total count of entities"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GithubAccount"
+          },
+          "description": "List of the selected entities"
+        }
+      },
+      "required": [
+        "count",
+        "entries"
+      ],
+      "additionalProperties": false,
+      "description": "Response Model for GetCollection"
+    },
+    "GithubAccount": {
+      "type": "object",
+      "properties": {
+        "githubId": {
+          "type": "number"
+        },
+        "githubApiPayload": {
+          "$ref": "#/definitions/GithubApiPayload"
+        },
+        "username": {
+          "type": "string"
+        },
+        "accountLinkDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "githubId",
+        "githubApiPayload",
+        "username",
+        "accountLinkDate"
+      ],
+      "additionalProperties": false
+    },
+    "GetEntityEndpoint<GithubAccount,\"username\">": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "properties": {
+            "select": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "githubId",
+                  "githubApiPayload",
+                  "username",
+                  "accountLinkDate"
+                ]
+              },
+              "description": "The list of fields to select"
+            }
+          },
+          "additionalProperties": false
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The entity's unique identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "$ref": "#/definitions/GithubAccount"
+        }
+      },
+      "required": [
+        "query",
+        "url",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for getting a single entity"
+    },
+    "GetCollectionEndpoint<GoogleAccount>": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "properties": {
+            "findOptions": {
+              "$ref": "#/definitions/FindOptions%3CGoogleAccount%2C(%22id%22%7C%22googleId%22%7C%22googleApiPayload%22%7C%22username%22%7C%22accountLinkDate%22)%5B%5D%3E"
+            }
+          },
+          "additionalProperties": false
+        },
+        "result": {
+          "$ref": "#/definitions/GetCollectionResult%3CGoogleAccount%3E"
+        }
+      },
+      "required": [
+        "query",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Rest endpoint model for getting / querying collections"
+    },
+    "FindOptions<GoogleAccount,(\"id\"|\"googleId\"|\"googleApiPayload\"|\"username\"|\"accountLinkDate\")[]>": {
+      "type": "object",
+      "properties": {
+        "top": {
+          "type": "number",
+          "description": "Limits the hits"
+        },
+        "skip": {
+          "type": "number",
+          "description": "Skips the first N hit"
+        },
+        "order": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "googleId": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "googleApiPayload": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "username": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            },
+            "accountLinkDate": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "description": "Sets up an order by a field and a direction"
+        },
+        "select": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "id",
+              "googleId",
+              "googleApiPayload",
+              "username",
+              "accountLinkDate"
+            ]
+          },
+          "description": "The result set will be limited to these fields"
+        },
+        "filter": {
+          "$ref": "#/definitions/FilterType%3CGoogleAccount%3E",
+          "description": "The fields should match this filter"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Type for default filtering model"
+    },
+    "FilterType<GoogleAccount>": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "$and": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGoogleAccount%3E"
+          }
+        },
+        "$not": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGoogleAccount%3E"
+          }
+        },
+        "$nor": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGoogleAccount%3E"
+          }
+        },
+        "$or": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterType%3CGoogleAccount%3E"
+          }
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$regex": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "string"
+                },
+                "$ne": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "googleId": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$gt": {
+                  "type": "number"
+                },
+                "$gte": {
+                  "type": "number"
+                },
+                "$lt": {
+                  "type": "number"
+                },
+                "$lte": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "number"
+                },
+                "$ne": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "googleApiPayload": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "object",
+                  "properties": {
+                    "iss": {
+                      "type": "string"
+                    },
+                    "sub": {
+                      "type": "number"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_verified": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "picture": {
+                      "type": "string"
+                    },
+                    "given_name": {
+                      "type": "string"
+                    },
+                    "family_name": {
+                      "type": "string"
+                    },
+                    "locale": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "iss",
+                    "sub",
+                    "email",
+                    "email_verified",
+                    "name",
+                    "picture",
+                    "given_name",
+                    "family_name",
+                    "locale"
+                  ],
+                  "additionalProperties": false
+                },
+                "$ne": {
+                  "type": "object",
+                  "properties": {
+                    "iss": {
+                      "type": "string"
+                    },
+                    "sub": {
+                      "type": "number"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_verified": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "picture": {
+                      "type": "string"
+                    },
+                    "given_name": {
+                      "type": "string"
+                    },
+                    "family_name": {
+                      "type": "string"
+                    },
+                    "locale": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "iss",
+                    "sub",
+                    "email",
+                    "email_verified",
+                    "name",
+                    "picture",
+                    "given_name",
+                    "family_name",
+                    "locale"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "iss": {
+                        "type": "string"
+                      },
+                      "sub": {
+                        "type": "number"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "email_verified": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "picture": {
+                        "type": "string"
+                      },
+                      "given_name": {
+                        "type": "string"
+                      },
+                      "family_name": {
+                        "type": "string"
+                      },
+                      "locale": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "iss",
+                      "sub",
+                      "email",
+                      "email_verified",
+                      "name",
+                      "picture",
+                      "given_name",
+                      "family_name",
+                      "locale"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "iss": {
+                        "type": "string"
+                      },
+                      "sub": {
+                        "type": "number"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "email_verified": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "picture": {
+                        "type": "string"
+                      },
+                      "given_name": {
+                        "type": "string"
+                      },
+                      "family_name": {
+                        "type": "string"
+                      },
+                      "locale": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "iss",
+                      "sub",
+                      "email",
+                      "email_verified",
+                      "name",
+                      "picture",
+                      "given_name",
+                      "family_name",
+                      "locale"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "username": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$regex": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "string"
+                },
+                "$ne": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "accountLinkDate": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$regex": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$eq": {
+                  "type": "string"
+                },
+                "$ne": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "$in": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "$nin": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "GetCollectionResult<GoogleAccount>": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number",
+          "description": "The Total count of entities"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GoogleAccount"
+          },
+          "description": "List of the selected entities"
+        }
+      },
+      "required": [
+        "count",
+        "entries"
+      ],
+      "additionalProperties": false,
+      "description": "Response Model for GetCollection"
+    },
+    "GoogleAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "googleId": {
+          "type": "number"
+        },
+        "googleApiPayload": {
+          "type": "object",
+          "properties": {
+            "iss": {
+              "type": "string"
+            },
+            "sub": {
+              "type": "number"
+            },
+            "email": {
+              "type": "string"
+            },
+            "email_verified": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            },
+            "given_name": {
+              "type": "string"
+            },
+            "family_name": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "iss",
+            "sub",
+            "email",
+            "email_verified",
+            "name",
+            "picture",
+            "given_name",
+            "family_name",
+            "locale"
+          ],
+          "additionalProperties": false
+        },
+        "username": {
+          "type": "string"
+        },
+        "accountLinkDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "googleId",
+        "googleApiPayload",
+        "username",
+        "accountLinkDate"
+      ],
+      "additionalProperties": false
+    },
+    "GetEntityEndpoint<GoogleAccount,\"username\">": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object",
+          "properties": {
+            "select": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "id",
+                  "googleId",
+                  "googleApiPayload",
+                  "username",
+                  "accountLinkDate"
+                ]
+              },
+              "description": "The list of fields to select"
+            }
+          },
+          "additionalProperties": false
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The entity's unique identifier"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "$ref": "#/definitions/GoogleAccount"
+        }
+      },
+      "required": [
+        "query",
+        "url",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for getting a single entity"
+    },
+    "PostEndpoint<GithubAccount,\"username\">": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/WithOptionalId%3CGithubAccount%2C%22username%22%3E"
+        },
+        "result": {
+          "$ref": "#/definitions/GithubAccount"
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for creating new entities"
+    },
+    "WithOptionalId<GithubAccount,\"username\">": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "githubId": {
+          "type": "number"
+        },
+        "githubApiPayload": {
+          "$ref": "#/definitions/GithubApiPayload"
+        },
+        "username": {
+          "type": "string"
+        },
+        "accountLinkDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountLinkDate",
+        "githubApiPayload",
+        "githubId"
+      ]
+    },
+    "PostEndpoint<GoogleAccount,\"username\">": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/WithOptionalId%3CGoogleAccount%2C%22username%22%3E"
+        },
+        "result": {
+          "$ref": "#/definitions/GoogleAccount"
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for creating new entities"
+    },
+    "WithOptionalId<GoogleAccount,\"username\">": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "googleId": {
+          "type": "number"
+        },
+        "googleApiPayload": {
+          "type": "object",
+          "properties": {
+            "iss": {
+              "type": "string"
+            },
+            "sub": {
+              "type": "number"
+            },
+            "email": {
+              "type": "string"
+            },
+            "email_verified": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "picture": {
+              "type": "string"
+            },
+            "given_name": {
+              "type": "string"
+            },
+            "family_name": {
+              "type": "string"
+            },
+            "locale": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "iss",
+            "sub",
+            "email",
+            "email_verified",
+            "name",
+            "picture",
+            "given_name",
+            "family_name",
+            "locale"
+          ],
+          "additionalProperties": false
+        },
+        "username": {
+          "type": "string"
+        },
+        "accountLinkDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountLinkDate",
+        "googleApiPayload",
+        "googleId",
+        "id"
+      ]
+    },
+    "PostEndpoint<Profile,\"username\">": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/WithOptionalId%3CProfile%2C%22username%22%3E"
+        },
+        "result": {
+          "$ref": "#/definitions/Profile"
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for creating new entities"
+    },
+    "WithOptionalId<Profile,\"username\">": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "displayName"
+      ]
+    },
+    "PostEndpoint<UserSettings,\"username\">": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "$ref": "#/definitions/WithOptionalId%3CUserSettings%2C%22username%22%3E"
+        },
+        "result": {
+          "$ref": "#/definitions/UserSettings"
+        }
+      },
+      "required": [
+        "body",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for creating new entities"
+    },
+    "WithOptionalId<UserSettings,\"username\">": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string",
+          "enum": [
+            "light",
+            "dark"
+          ]
+        }
+      },
+      "required": [
+        "theme"
+      ]
+    },
+    "PatchEndpoint<Profile,\"username\">": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "body",
+        "url",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for updating entities"
+    },
+    "DeleteEndpoint<GithubAccount,\"username\">": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "url",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for deleting entities"
+    },
+    "DeleteEndpoint<GoogleAccount,\"username\">": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "url",
+        "result"
+      ],
+      "additionalProperties": false,
+      "description": "Endpoint model for deleting entities"
     }
   }
 }

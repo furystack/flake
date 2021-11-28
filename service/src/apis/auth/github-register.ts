@@ -19,7 +19,7 @@ export const GithubRegisterAction: RequestAction<PostGithubRegister> = Validate(
   const githubApiPayload = await injector.getInstance(GithubAuthService).getGithubUserData({ code, clientId })
 
   const existingGhUsers = await storeManager
-    .getStoreFor(GithubAccount, 'id')
+    .getStoreFor(GithubAccount, 'username')
     .find({ filter: { githubId: { $eq: githubApiPayload.id } }, top: 2 })
   if (existingGhUsers.length !== 0) {
     throw new RequestError(`Github user already registered`, 401)
@@ -34,7 +34,7 @@ export const GithubRegisterAction: RequestAction<PostGithubRegister> = Validate(
 
   const newUser = created[0]
 
-  await storeManager.getStoreFor(GithubAccount, 'id').add({
+  await storeManager.getStoreFor(GithubAccount, 'username').add({
     accountLinkDate: registrationDate,
     username: newUser.username,
     githubId: githubApiPayload.id,

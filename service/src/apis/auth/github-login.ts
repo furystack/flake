@@ -24,7 +24,7 @@ export const GithubLoginAction: RequestAction<PostGithubLogin> = Validate({
   }
   const existingGhUsers = await injector
     .getInstance(StoreManager)
-    .getStoreFor(GithubAccount, 'id')
+    .getStoreFor(GithubAccount, 'username')
     .find({ filter: { githubId: { $eq: githubApiPayload.id } }, top: 2 })
   if (existingGhUsers.length === 0) {
     throw new RequestError(`Github user not registered`, 500)

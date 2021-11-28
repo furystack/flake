@@ -136,9 +136,6 @@
     "GithubAccount": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "githubId": {
           "type": "number"
         },
@@ -153,7 +150,6 @@
         }
       },
       "required": [
-        "id",
         "githubId",
         "githubApiPayload",
         "username",

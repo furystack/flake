@@ -1,18 +1,22 @@
-import { GetCollectionEndpoint, GetEntityEndpoint, RestApi } from '@furystack/rest'
+import {
+  DeleteEndpoint,
+  GetCollectionEndpoint,
+  GetEntityEndpoint,
+  PatchEndpoint,
+  PostEndpoint,
+  RestApi,
+} from '@furystack/rest'
 import { User, GoogleAccount, GithubAccount, Profile, UserSettings } from '../models'
 
 export type PutSettings = { body: Omit<UserSettings, 'username'>; result: UserSettings }
 export type PutProfile = { body: Omit<Profile, 'username'>; result: Profile }
-export type PostAttachGithubAccount = { body: { code: string; clientId: string }; result: Omit<User, 'password'> }
 export type PostGithubRegister = { body: { code: string; clientId: string }; result: Omit<User, 'password'> }
 export type PostGithubLogin = { body: { code: string; clientId: string }; result: Omit<User, 'password'> }
 export type PostGoogleLogin = {
   body: { token: string }
   result: Omit<User, 'password'>
 }
-export type PostAttachGoogleAccount = { body: { token: string }; result: Omit<User, 'password'> }
 export type PostGoogleRegister = { body: { token: string }; result: Omit<User, 'password'> }
-export type PostAttachGoogleLogin = { body: { token: string }; result: Omit<User, 'password'> }
 export type PostLogin = { result: User; body: { username: string; password: string } }
 export type PostRegister = { body: { email: string; password: string }; result: Omit<User, 'password'> }
 
@@ -25,6 +29,10 @@ export interface AuthApi extends RestApi {
     '/settings/:id': GetEntityEndpoint<UserSettings, 'username'>
     '/profiles': GetCollectionEndpoint<Profile>
     '/profiles/:id': GetEntityEndpoint<Profile, 'username'>
+    '/githubAccounts': GetCollectionEndpoint<GithubAccount>
+    '/githubAccounts/:id': GetEntityEndpoint<GithubAccount, 'username'>
+    '/googleAccounts': GetCollectionEndpoint<GoogleAccount>
+    '/googleAccuonts/:id': GetEntityEndpoint<GoogleAccount, 'username'>
     '/loginProviderDetails': {
       result: { google?: GoogleAccount; github?: GithubAccount; hasPassword: boolean }
     }
@@ -41,17 +49,21 @@ export interface AuthApi extends RestApi {
     '/register': PostRegister
     '/googleLogin': PostGoogleLogin
     '/googleRegister': PostGoogleRegister
-    '/attachGoogleAccount': PostAttachGoogleAccount
-    '/detachGoogleAccount': { result: Omit<User, 'password'> }
     '/githubLogin': PostGithubLogin
     '/githubRegister': PostGithubRegister
-    '/attachGithubAccount': PostAttachGithubAccount
-    '/detachGithubAccount': { result: Omit<User, 'password'> }
     '/logout': { result: unknown }
     '/accept-terms': { result: { success: boolean } }
+    '/githubAccount': PostEndpoint<GithubAccount, 'username'>
+    '/googleAccount': PostEndpoint<GoogleAccount, 'username'>
+    '/profile': PostEndpoint<Profile, 'username'>
+    '/settings': PostEndpoint<UserSettings, 'username'>
   }
-  PUT: {
-    '/settings/current': PutSettings
-    '/profile/current': PutProfile
+  PATCH: {
+    '/profile/:id': PatchEndpoint<Profile, 'username'>
+    '/settings/:id': PatchEndpoint<Profile, 'username'>
+  }
+  DELETE: {
+    '/githubAccount/:id': DeleteEndpoint<GithubAccount, 'username'>
+    '/googleAccount/:id': DeleteEndpoint<GoogleAccount, 'username'>
   }
 }

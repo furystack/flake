@@ -26,7 +26,7 @@ export const setupStores = (i: Injector) => {
       })
       .useFileSystem({
         model: GithubAccount,
-        primaryKey: 'id',
+        primaryKey: 'username',
         fileName: getFileName(GithubAccount),
         tickMs: STORE_TICK_MS,
       })
