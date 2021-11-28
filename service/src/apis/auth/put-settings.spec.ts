@@ -27,7 +27,9 @@ describe('PutSettingsAction', () => {
       await testContext.callAuthClient({
         method: 'PUT',
         action: '/settings/current',
-        body: testSettings,
+        body: {
+          theme: testSettings.theme,
+        },
       })
 
       const insertedCount = await settingsStore.count()
@@ -49,7 +51,7 @@ describe('PutSettingsAction', () => {
       await testContext.callAuthClient({
         method: 'PUT',
         action: '/settings/current',
-        body: updatedSetting,
+        body: { theme: updatedSetting.theme },
       })
 
       const insertedCount = await settingsStore.count()
