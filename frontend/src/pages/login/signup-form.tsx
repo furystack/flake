@@ -3,37 +3,41 @@ import { FC, FormEvent, useCallback, useMemo, useState } from 'react'
 import { FormattedMessage } from 'react-intl'
 import { GitHub, Google } from '@mui/icons-material'
 import { LoginProviderData } from 'common'
-import { useGoogleLogin } from '../../hooks/use-google-auth'
-import { useLogin } from '../../hooks/use-login'
+import { useGoogleSignup } from '../../hooks/use-google-auth'
+import { useSignup } from '../../hooks/use-signup'
 import { loginPageMessages } from '.'
 
-export const LoginForm: FC<{ oauthData: LoginProviderData }> = ({ oauthData }) => {
+export const SignupForm: FC<{ oauthData: LoginProviderData }> = ({ oauthData }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
 
   const {
-    mutate: googleLogin,
-    error: googleLoginError,
-    isLoading: googleIsLoading,
-  } = useGoogleLogin(oauthData.googleClientId)
+    mutate: googleSignup,
+    error: googleSignupError,
+    isLoading: googleSignupIsLoading,
+  } = useGoogleSignup(oauthData.googleClientId)
 
-  const { mutate: login, error: loginError, isLoading: loginIsLoading } = useLogin()
+  const { mutate: signUp, error: signUpError, isLoading: signupIsLoading } = useSignup()
 
-  const error = useMemo(() => googleLoginError || loginError, [googleLoginError, loginError])
-  const isLoading = useMemo(() => loginIsLoading || googleIsLoading, [googleIsLoading, loginIsLoading])
+  const error = useMemo(
+    () => googleSignupError || signUpError || (password !== confirmPassword && new Error('Passwords must match')),
+    [confirmPassword, googleSignupError, password, signUpError],
+  )
+  const isLoading = useMemo(() => signupIsLoading || googleSignupIsLoading, [googleSignupIsLoading, signupIsLoading])
 
-  const loginHandler = useCallback(
+  const signupHandler = useCallback(
     (ev: FormEvent) => {
       ev.preventDefault()
-      login({ username, password })
+      signUp({ email: username, password })
     },
-    [login, password, username],
+    [password, signUp, username],
   )
 
   return (
-    <form onSubmit={loginHandler} data-testid="login-form">
+    <form onSubmit={signupHandler} data-testid="login-form">
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={4}>
           <TextField
             disabled={isLoading}
             fullWidth
@@ -45,7 +49,7 @@ export const LoginForm: FC<{ oauthData: LoginProviderData }> = ({ oauthData }) =
             required
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={4}>
           <TextField
             disabled={isLoading}
             fullWidth
@@ -55,20 +59,32 @@ export const LoginForm: FC<{ oauthData: LoginProviderData }> = ({ oauthData }) =
             label={<FormattedMessage {...loginPageMessages.password} />}
           />
         </Grid>
+        <Grid item xs={12} lg={4}>
+          <TextField
+            disabled={isLoading}
+            fullWidth
+            type="password"
+            onChange={(ev) => setConfirmPassword(ev.target.value)}
+            required
+            label={<FormattedMessage {...loginPageMessages.confirmPassword} />}
+          />
+        </Grid>
         <Grid item xs={12} display="flex" justifyContent="flex-end">
           <ButtonGroup>
             <Button
               disabled={isLoading}
               onClick={() => {
-                googleLogin()
+                googleSignup()
               }}>
-              <Google />
+              <Google sx={{ mr: '4px' }} />
+              <FormattedMessage {...loginPageMessages.signUpWithGoogle} />
             </Button>
             <Button disabled={true}>
-              <GitHub />
+              <GitHub sx={{ mr: '4px' }} />
+              <FormattedMessage {...loginPageMessages.signUpWithGithub} />
             </Button>
             <Button type="submit" color="primary" variant="contained" disabled={isLoading}>
-              <FormattedMessage {...loginPageMessages.login} />
+              <FormattedMessage {...loginPageMessages.signUpWithPassword} />
             </Button>
           </ButtonGroup>
         </Grid>

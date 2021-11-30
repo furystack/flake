@@ -1,4 +1,4 @@
-import { useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { Retrier } from '@furystack/utils'
 import { useCallback } from 'react'
 import { useAuthApiContext } from './use-auth-api'
@@ -83,35 +83,45 @@ const getTokenFromPrompt = async (loginReqUrl: string, windowInstance = window) 
   })
 }
 
-export const useGoogleAuth = () => {
-  const queryClient = useQueryClient()
+const getToken = async (clientId: string) => {
+  const loginReqUrl = getGoogleLoginUrl(clientId)
+  try {
+    return await getTokenSilent(loginReqUrl)
+  } catch (error) {
+    /** Cannot get token */
+  }
+  return await getTokenFromPrompt(loginReqUrl)
+}
+
+export const useGoogleLogin = (googleClientId: string) => {
   const api = useAuthApiContext()
-
-  const getToken = useCallback(async () => {
-    const { result: oauthData } = await api({
-      method: 'GET',
-      action: '/oauth-data',
-    })
-    const loginReqUrl = getGoogleLoginUrl(oauthData.googleClientId)
-    try {
-      return await getTokenSilent(loginReqUrl)
-    } catch (error) {
-      /** Cannot get token */
-    }
-    return await getTokenFromPrompt(loginReqUrl)
-  }, [api])
-
-  const signup = useCallback(async () => {
-    const token = await getToken()
-    await api({ method: 'POST', action: '/googleRegister', body: { token } })
-    queryClient.invalidateQueries('GET_CURRENT_USER')
-  }, [api, getToken, queryClient])
-
+  const queryClient = useQueryClient()
   const login = useCallback(async () => {
-    const token = await getToken()
+    const token = await getToken(googleClientId)
     await api({ method: 'POST', action: '/googleLogin', body: { token } })
     queryClient.invalidateQueries('GET_CURRENT_USER')
-  }, [api, getToken, queryClient])
+  }, [api, googleClientId, queryClient])
 
-  return { signup, login }
+  return useMutation(login, {
+    meta: {},
+    onSuccess: () => {
+      queryClient.invalidateQueries('GET_CURRENT_USER')
+    },
+  })
+}
+
+export const useGoogleSignup = (googleClientId: string) => {
+  const api = useAuthApiContext()
+  const queryClient = useQueryClient()
+
+  const login = useCallback(async () => {
+    const token = await getToken(googleClientId)
+    await api({ method: 'POST', action: '/googleRegister', body: { token } })
+  }, [api, googleClientId])
+
+  return useMutation(login, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('GET_CURRENT_USER')
+    },
+  })
 }

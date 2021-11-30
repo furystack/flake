@@ -1,8 +1,10 @@
 import { FC, useState } from 'react'
 import { defineMessages, FormattedMessage } from 'react-intl'
-import { Tab, Typography } from '@mui/material'
+import { CircularProgress, Tab, Typography } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
+import { useOauthData } from '../../hooks/use-oauth-data'
 import { LoginForm } from './login-form'
+import { SignupForm } from './signup-form'
 
 export const loginPageMessages = defineMessages({
   email: {
@@ -29,6 +31,10 @@ export const loginPageMessages = defineMessages({
     id: 'login.missingPassword',
     defaultMessage: 'Please provide a password',
   },
+  confirmPasswordMustMatch: {
+    id: 'login.confirmPasswordMustMatch',
+    defaultMessage: 'The Password and the Confirm Password must be the same',
+  },
   login: {
     id: 'login.login',
     defaultMessage: 'Login',
@@ -37,10 +43,28 @@ export const loginPageMessages = defineMessages({
     id: 'login.signUp',
     defaultMessage: 'Sign up',
   },
+  signUpWithGoogle: {
+    id: 'login.signUpWithGoogle',
+    defaultMessage: 'With Google',
+  },
+  signUpWithGithub: {
+    id: 'login.signUpWithGithub',
+    defaultMessage: 'With Github',
+  },
+  signUpWithPassword: {
+    id: 'login.signUpWithPassword',
+    defaultMessage: 'With local user',
+  },
 })
 
 export const LoginPage: FC = () => {
   const [tabValue, setTabValue] = useState<'login' | 'signUp'>('login')
+
+  const { isLoading, data: oauthData } = useOauthData()
+
+  if (isLoading || !oauthData) {
+    return <CircularProgress />
+  }
 
   return (
     <div
@@ -62,10 +86,10 @@ export const LoginPage: FC = () => {
           <Tab value="signUp" label={<FormattedMessage {...loginPageMessages.signUp} />} />
         </TabList>
         <TabPanel value="login">
-          <LoginForm />
+          <LoginForm oauthData={oauthData} />
         </TabPanel>
         <TabPanel value="signUp">
-          <>TODO: Sign Up form</>
+          <SignupForm oauthData={oauthData} />
         </TabPanel>
       </TabContext>
     </div>

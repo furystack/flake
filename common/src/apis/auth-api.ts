@@ -20,6 +20,11 @@ export type PostGoogleRegister = { body: { token: string }; result: Omit<User, '
 export type PostLogin = { result: User; body: { username: string; password: string } }
 export type PostRegister = { body: { email: string; password: string }; result: Omit<User, 'password'> }
 
+export type LoginProviderData = {
+  googleClientId: string
+  githubClientId: string
+}
+
 export interface AuthApi extends RestApi {
   GET: {
     '/users': GetCollectionEndpoint<User>
@@ -37,10 +42,7 @@ export interface AuthApi extends RestApi {
       result: { google?: GoogleAccount; github?: GithubAccount; hasPassword: boolean }
     }
     '/oauth-data': {
-      result: {
-        googleClientId: string
-        githubClientId: string
-      }
+      result: LoginProviderData
     }
     '/avatars/:username': { result: any; url: { username: string } }
   }

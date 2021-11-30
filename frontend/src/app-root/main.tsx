@@ -21,15 +21,15 @@ const queryClient = new QueryClient()
 export const Main: FC = () => {
   const { currentLanguage } = useLanguage()
   return (
-    <IntlProvider locale={currentLanguage} defaultLocale={currentLanguage} messages={languages[currentLanguage]}>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <IntlProvider locale={currentLanguage} defaultLocale={currentLanguage} messages={languages[currentLanguage]}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <SnackbarProvider maxSnack={5}>
             <Initializer />
           </SnackbarProvider>
         </ThemeProvider>
-      </QueryClientProvider>
-    </IntlProvider>
+      </IntlProvider>
+    </QueryClientProvider>
   )
 }
