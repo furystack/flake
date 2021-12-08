@@ -9,8 +9,8 @@
       "request": "launch",
       "name": "Debug Service",
       "program": "${workspaceFolder}/service/src/service.ts",
-      "cwd": "${workspaceFolder}/service",
-      "outFiles": ["${workspaceFolder}/service/dist/service.js"]
+      "cwd": "${workspaceFolder}/service"
+      // "outFiles": ["${workspaceFolder}/service/dist/service.js"]
     },
     {
       "type": "node",
