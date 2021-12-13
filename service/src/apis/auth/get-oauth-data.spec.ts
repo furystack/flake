@@ -1,7 +1,7 @@
 import { StoreManager } from '@furystack/core'
 import { usingAsync } from '@furystack/utils'
 import { GithubSettings, GoogleSettings, Settings } from 'common'
-import { RequestError } from 'got/dist/source'
+import { RequestError } from 'got'
 import { v4 } from 'uuid'
 import { TestContext } from '../../services/test-context'
 
