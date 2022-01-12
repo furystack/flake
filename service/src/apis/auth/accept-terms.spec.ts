@@ -3,17 +3,17 @@ import { TestContext } from '../../services/test-context'
 
 describe('AcceptTermsAction', () => {
   it('Should add Accept Terms role to the current user', async () => {
-    await usingAsync(TestContext.create(), async (testContext) => {
+    await usingAsync(TestContext.create(), async ({ seedTestUser, callAuthClient }) => {
       const username = 'test-accept-terms-user'
       const password = 'test-password'
-      await testContext.seedTestUser({
+      await seedTestUser({
         username,
         roles: [],
         registrationDate: new Date().toISOString(),
         password,
       })
 
-      const loginResponse = await testContext.callAuthClient({
+      const loginResponse = await callAuthClient({
         method: 'POST',
         action: '/login',
         body: { username, password },
@@ -23,12 +23,12 @@ describe('AcceptTermsAction', () => {
       expect(loginResult.username).toBe(username)
       expect(loginResult.roles).toEqual([])
 
-      await testContext.callAuthClient({
+      await callAuthClient({
         method: 'POST',
         action: '/accept-terms',
       })
 
-      const currentUserResponse = await testContext.callAuthClient({
+      const currentUserResponse = await callAuthClient({
         method: 'GET',
         action: '/users/current',
       })
