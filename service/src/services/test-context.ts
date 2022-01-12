@@ -2,7 +2,7 @@ import { InMemoryStore, StoreManager } from '@furystack/core'
 import { Injectable, Injector } from '@furystack/inject'
 import { Disposable } from '@furystack/utils'
 import { createClient } from '@furystack/rest-client-got'
-import { AuthApi, Profile, Settings, SettingsApi, User, UserSettings } from 'common'
+import { AuthApi, GithubAccount, GoogleAccount, Profile, Settings, SettingsApi, User, UserSettings } from 'common'
 import { useApis } from '../apis'
 import { setupRepository } from '../repository'
 import { DefaultSession, HttpAuthenticationSettings } from '@furystack/rest-service'
@@ -51,6 +51,8 @@ export class TestContext implements Disposable {
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: Profile, primaryKey: 'username' })))
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: UserSettings, primaryKey: 'username' })))
     this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: Settings, primaryKey: 'type' })))
+    this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: GoogleAccount, primaryKey: 'username' })))
+    this.injector.setupStores((s) => s.addStore(new InMemoryStore({ model: GithubAccount, primaryKey: 'username' })))
   }
 
   public callAuthClient = createClient<AuthApi>({

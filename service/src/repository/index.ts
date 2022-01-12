@@ -11,6 +11,5 @@ export const setupRepository = (i: Injector) => {
     .setupRepository(setupSettingsDataSet)
     .setupRepository(setupUserSettingsDataSet)
     .setupRepository(setupGoogleAccountsDataSet)
-    .setupRepository(setupGoogleAccountsDataSet)
     .setupRepository(setupGithubAccountsDataSet)
 }
