@@ -2,11 +2,9 @@ import { Box, styled } from '@mui/material'
 import { FC } from 'react'
 import { NavLink, NavLinkProps } from 'react-router-dom'
 
-export const HeaderNavLink: FC<{ title: JSX.Element; icon?: JSX.Element } & Omit<NavLinkProps, 'title'>> = ({
-  title,
-  icon,
-  ...navLinkProps
-}) => (
+export const HeaderNavLink: FC<
+  { title: JSX.Element; icon?: JSX.Element } & Omit<NavLinkProps, 'title' | 'children'>
+> = ({ title, icon, ...navLinkProps }) => (
   <NavLink {...navLinkProps}>
     {icon} <Box sx={{ display: { xs: (icon && 'none') || 'inline', md: 'inline' } }}>{title}</Box>
   </NavLink>
