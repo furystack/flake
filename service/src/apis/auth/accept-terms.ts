@@ -11,7 +11,7 @@ export const AcceptTermsAction: RequestAction<{ result: { success: boolean } }> 
       .update(user.username, { roles: [...user.roles, 'terms-accepted'] })
   }
   await injector.logger.withScope('accept-terms').information({
-    message: `The User '${user.username}' has been accepted the terms`,
+    message: `The User '${user.username}' has accepted the terms`,
     data: { ...user },
   })
   return JsonResult({ success: true })
