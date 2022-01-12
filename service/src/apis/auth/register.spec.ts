@@ -4,11 +4,11 @@ import { TestContext } from '../../services/test-context'
 
 describe('RegisterAction', () => {
   it('Should register and log in the current user', async () => {
-    await usingAsync(TestContext.create(), async (testContext) => {
+    await usingAsync(TestContext.create(), async ({ callAuthClient }) => {
       const email = 'test-register-user@gmail.com'
       const password = 'test-password'
 
-      const registerResponse = await testContext.callAuthClient({
+      const registerResponse = await callAuthClient({
         method: 'POST',
         action: '/register',
         body: { email, password },
@@ -18,7 +18,7 @@ describe('RegisterAction', () => {
       expect(registerResult.username).toBe(email)
       expect(registerResult.roles).toEqual([])
 
-      const currentUserResponse = await testContext.callAuthClient({
+      const currentUserResponse = await callAuthClient({
         method: 'GET',
         action: '/users/current',
       })
